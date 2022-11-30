@@ -3,9 +3,12 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import SideDrawer from './SideDrawer';
+import ShoppingCart from './ShoppingCart';
+
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from '@mui/material/Drawer';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 
 const Container = styled.div`
@@ -13,6 +16,13 @@ const Container = styled.div`
   height: 80px;
   position: absolute;
   width: 100vw;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: 'all 0.3s';
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
 `
 
 const Wrapper = styled.div`
@@ -45,6 +55,7 @@ const Center = styled.div`
   justify-content: flex-center;
   align-items: center;
   text-align: center;
+  z-index: 10;
 `
 
 const Logo = styled.p`
@@ -54,35 +65,45 @@ const Logo = styled.p`
   letter-spacing: 13px;
   font-family: Futura;
   user-select: none;
+  z-index: 10;
 `
 
-const Navbar = ({state, onClick}) => {
+const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart}) => {
   return (
     <Container>
       <Wrapper>
         <Left>
           <React.Fragment key='left'>
-            <IconButton aria-label="hamburger" onClick={onClick} sx={{ zIndex: 10 }} > 
+            <IconButton aria-label="hamburger" onClick={onClickMenu} sx={{ zIndex: 10 }}> 
               <MenuIcon sx={{ fontSize: 40 }}></MenuIcon>
             </IconButton>
             <Drawer
               anchor={'left'}
-              open={state}
-              onClose={onClick}
+              open={stateMenu}
+              onClose={onClickMenu}
             >
-              {<SideDrawer onClick={onClick}></SideDrawer>}
+              {<SideDrawer onClick={onClickMenu}></SideDrawer>}
             </Drawer>
           </React.Fragment>
-          
-          
         </Left>
 
         <Center>
-          <Logo>LAVISH</Logo>
+          <Logo> LAVISH</Logo>
         </Center>
 
         <Right>
-
+          <React.Fragment key='right'>
+              <IconButton aria-label="hamburger" onClick={onClickCart} sx={{ zIndex: 10 }} > 
+                <ShoppingCartOutlinedIcon sx={{ fontSize: 40 }}></ShoppingCartOutlinedIcon>
+              </IconButton>
+              <Drawer
+                anchor={'right'}
+                open={stateCart}
+                onClose={onClickCart}
+              >
+                {<ShoppingCart onClick={onClickCart}></ShoppingCart>}
+              </Drawer>
+            </React.Fragment>
         </Right>
       </Wrapper>
     </Container>

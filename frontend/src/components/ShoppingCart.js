@@ -14,18 +14,17 @@ import MailIcon from '@mui/icons-material/Mail';
 const ListHeader = styled.strong`
   font-size: 20px;
   padding-left: 25px;
-  user-select: none;
 `
 
 
-const SideDrawer = ({onClick}) => (
+const ShoppingCart = ({onClick}) => (
   <Box
-    sx={{ width: 350, paddingTop: '50px' }}
+    sx={{ width: 650, paddingTop: '50px' }}
     role="presentation"
     onClick={onClick}
     onKeyDown={onClick}
   >
-    <ListHeader>New Arrivals</ListHeader>
+    <ListHeader>Cart</ListHeader>
     <List>
       {['View All', 'For Woman', 'For Men'].map((text) => (
         <ListItem key={text} disablePadding>
@@ -58,4 +57,4 @@ const SideDrawer = ({onClick}) => (
   </Box>
 );
 
-export default SideDrawer;
+export default ShoppingCart;
