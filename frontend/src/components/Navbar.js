@@ -18,11 +18,10 @@ const Container = styled.div`
   width: 100vw;
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.2);
-  transition: 'all 0.3s';
+  transition: background-color 0.3s ease-in-out;
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
   }
-
 `
 
 const Wrapper = styled.div`
@@ -68,13 +67,13 @@ const Logo = styled.p`
   z-index: 10;
 `
 
-const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart}) => {
+const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart, category}) => {
   return (
     <Container>
       <Wrapper>
         <Left>
           <React.Fragment key='left'>
-            <IconButton aria-label="hamburger" onClick={onClickMenu} sx={{ zIndex: 10 }}> 
+            <IconButton aria-label="hamburger" onClick={onClickMenu} sx={{ zIndex: 10, color: 'black' }}> 
               <MenuIcon sx={{ fontSize: 40 }}></MenuIcon>
             </IconButton>
             <Drawer
@@ -82,7 +81,7 @@ const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart}) => {
               open={stateMenu}
               onClose={onClickMenu}
             >
-              {<SideDrawer onClick={onClickMenu}></SideDrawer>}
+              {<SideDrawer category={category} onClick={onClickMenu}></SideDrawer>}
             </Drawer>
           </React.Fragment>
         </Left>
@@ -93,7 +92,7 @@ const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart}) => {
 
         <Right>
           <React.Fragment key='right'>
-              <IconButton aria-label="hamburger" onClick={onClickCart} sx={{ zIndex: 10 }} > 
+              <IconButton aria-label="hamburger" onClick={onClickCart} sx={{ zIndex: 10, color: 'black' }} > 
                 <ShoppingCartOutlinedIcon sx={{ fontSize: 40 }}></ShoppingCartOutlinedIcon>
               </IconButton>
               <Drawer

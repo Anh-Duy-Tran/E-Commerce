@@ -3,13 +3,28 @@ import * as React from 'react';
 import Navbar from "../../components/Navbar";
 import PageHeroSlider from '../../components/HeroSlider';
 import styled from 'styled-components';
+import Button from '@mui/material/Button';
+import LandingPageHeroSlider from '../../static/LandingPageSlider.json'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-const LandingPage = () => {
+const Footer = styled.div`
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 80px;
+  padding-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+`
+
+
+const LandingPage = ({category}) => {
+
   const [menu, setMenu] = React.useState(false);
   const [cart, setCart] = React.useState(false);
 
@@ -34,9 +49,13 @@ const LandingPage = () => {
                 stateCart={cart}
                 onClickMenu={toggleMenu} 
                 onClickCart={toggleCart}
+                category={category}
                 >
         </Navbar>
-        <PageHeroSlider></PageHeroSlider>
+        <PageHeroSlider slides={LandingPageHeroSlider}></PageHeroSlider>
+        <Footer>
+          {/* <Button variant="outlined" sx={{ color: 'black'}}>SHOP NOW</Button> */}
+        </Footer>
     </Container>
   )
 }

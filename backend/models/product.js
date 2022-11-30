@@ -16,14 +16,15 @@ const productSchema = new Schema({
       message: 'price cannot be 0'
     } 
   },
+  color: {
+    type: [String],
+    required: true
+  },
   image: {
-    type: [URL]
+    type: Object
   },
   description: {
     type: String
-  },
-  color: {
-    type: [String]
   }
 });
 
