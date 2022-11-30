@@ -5,16 +5,20 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
+const CardStyle = {
+  width: '100%', 
+  aspectRatio: 0.67
+}
 
-const StoreItem = ({}) => {
+const StoreItem = ({product}) => {
   return (
-    <Card sx={{maxHeight: 600}}>
+    <Card sx={CardStyle}>
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
+        image={product.idle}
       />
       <CardContent>
         

@@ -65,12 +65,13 @@ const StorePage = ({ category, allProducts, allStore}) => {
                 onClickMenu={toggleMenu} 
                 onClickCart={toggleCart}
                 category={category}
+                
                 >
         </Navbar>
         <StoreContainer>
           {
             product.getProductFromShop(allStore[store], allProducts).map(
-              product => <StoreItem></StoreItem>
+              product => <StoreItem product={product}></StoreItem>
             )
           }
         </StoreContainer>
