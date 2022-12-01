@@ -9,10 +9,13 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Drawer from '@mui/material/Drawer';
 import styled from 'styled-components';
+import Box from '@mui/material/Box';
 
 import Navbar from "../../components/Navbar";
 import StoreItem from '../../components/StoreItem';
+import AddToCart from '../../components/AddToCart';
 
 
 const Container = styled.div`
@@ -64,6 +67,9 @@ const StorePage = ({ category, allProducts, allStore}) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [cartOpen, setCartOpen] = React.useState(false);
 
+  const [addToCartOpen, setAddToCart] = React.useState(false);
+  const [product, setProduct] = React.useState('');
+
   const toggleMenu = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -78,8 +84,17 @@ const StorePage = ({ category, allProducts, allStore}) => {
     setCartOpen((prvCart) => !prvCart);
   };
 
-  const onClick = (id) => {
-    cart.addToCart(id);
+  const toggleAddToCart = (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setAddToCart((prvValue) => !prvValue);
+    // cart.addToCart(id);
+  }
+
+  const onAddToCartClick = (id) => {
+    setProduct(id);
+    setAddToCart(true);
   }
 
   const store = useParams().id;
@@ -94,6 +109,7 @@ const StorePage = ({ category, allProducts, allStore}) => {
                     onClickMenu={toggleMenu} 
                     onClickCart={toggleCart}
                     category={category}
+                    allProducts={allProducts}
                     >
             </Navbar>
           </Toolbar>
@@ -102,10 +118,17 @@ const StorePage = ({ category, allProducts, allStore}) => {
         <StoreContainer>
           {
             products.getProductFromShop(allStore[store], allProducts).map(
-              product => <StoreItem key={product._id} product={product} onClick={() => onClick(product._id)}></StoreItem>
+              product => <StoreItem key={product._id} product={product} onClick={() => onAddToCartClick(product._id)}></StoreItem>
             )
           }
         </StoreContainer>
+        <Drawer
+          anchor={'bottom'}
+          open={addToCartOpen}
+          onClose={toggleAddToCart}
+        >
+          <AddToCart product={products.findProduct(product, allProducts)}></AddToCart>
+        </Drawer>
     </Container>
   )
 }

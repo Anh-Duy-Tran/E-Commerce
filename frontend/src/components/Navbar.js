@@ -68,7 +68,7 @@ const Logo = styled.p`
   color: 'black';
 `
 
-const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart, category}) => {
+const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart, category, allProducts}) => {
   return (
     <Container>
       <Wrapper>
@@ -101,7 +101,7 @@ const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart, category}) => {
                 open={stateCart}
                 onClose={onClickCart}
               >
-                {<ShoppingCart onClick={onClickCart}></ShoppingCart>}
+                {<ShoppingCart onClick={onClickCart} allProducts={allProducts}></ShoppingCart>}
               </Drawer>
             </React.Fragment>
         </Right>

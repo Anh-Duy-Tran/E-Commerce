@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import ColorSelector from './ColorSelector';
 import SizeSelector from './SizeSelector';
 
-const Container = styled.div`
+import cart from '../controllers/cart';
 
+const Container = styled.div`
+  margin-bottom: auto;
 `
 
 const Name = styled.h1`
@@ -27,12 +29,19 @@ const Price = styled.p`
 `
 
 
-const ProductInfo = ({product, color, setColor}) => {
-  const [ size, setSize ] = React.useState('')
+const ProductInfo = ({product, color, setColor, noDescription}) => {
+  const [ size, setSize ] = React.useState(null)
 
   const onChangeSizeClick = (newSize) => {
     console.log(size, newSize);
-    setSize((prvSize) => prvSize === '' ? newSize : '')
+    setSize((prvSize) => prvSize === null ? newSize : null)
+  }
+
+  const addToCart = (product) => {
+    if (size === null) {
+      return;
+    }
+    cart.addToCart(product._id, color, size);
   }
 
   return (
@@ -40,9 +49,14 @@ const ProductInfo = ({product, color, setColor}) => {
       <Name>
         {product.name}
       </Name>
-      <Description>
-        {product.description}
-      </Description>
+
+      {
+        noDescription
+          ? null
+          : <Description>
+              {product.description}
+            </Description>
+      }
 
       <Price>
         {product.price + " EUR"}
@@ -50,6 +64,7 @@ const ProductInfo = ({product, color, setColor}) => {
 
       <ColorSelector colors={product.color} color={color} onChangeColor={setColor}></ColorSelector>
       <SizeSelector size={product.size} selected={size} selector={onChangeSizeClick} ></SizeSelector>
+      <button onClick={() => addToCart(product)}>Add to cart</button>
     </Container>
   )
 }

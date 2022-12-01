@@ -22,7 +22,7 @@ const Footer = styled.div`
 `
 
 
-const LandingPage = ({category}) => {
+const LandingPage = ({category, allProducts}) => {
 
   const [menu, setMenu] = React.useState(false);
   const [cart, setCart] = React.useState(false);
@@ -49,6 +49,7 @@ const LandingPage = ({category}) => {
                 onClickMenu={toggleMenu} 
                 onClickCart={toggleCart}
                 category={category}
+                allProducts={allProducts}
                 >
         </Navbar>
         <PageHeroSlider slides={LandingPageHeroSlider}></PageHeroSlider>

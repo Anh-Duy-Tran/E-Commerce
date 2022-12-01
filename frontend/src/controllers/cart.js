@@ -1,7 +1,8 @@
 const getAllProductFromCart = () => {
   return Object.keys(localStorage).map( key => ({
-      _id: key,
-      ...localStorage.getItem(key)
+      _id: key.split('/')[0],
+      uniqueKey: key,
+      ...JSON.parse(localStorage.getItem(key))
     })
   )
 }
@@ -12,13 +13,14 @@ const getCartCount = () => {
   )
 }
 
-const addToCart = (productid) => {
-  if (window.localStorage.getItem(productid) === null) {
-    window.localStorage.setItem(productid, JSON.stringify({amount: 1, color: null, size: null}));
+const addToCart = (productid, color, size) => {
+  const key = `${productid}/${color}/${size}`;
+  if (window.localStorage.getItem(key) === null) {
+    window.localStorage.setItem(key, JSON.stringify({amount: 1, color: color, size: size}));
   } else {
-    const data = JSON.parse(localStorage.getItem(productid));
+    const data = JSON.parse(localStorage.getItem(key));
     data.amount = Number(data.amount) + 1;
-    window.localStorage.setItem(productid, JSON.stringify(data));
+    window.localStorage.setItem(key, JSON.stringify(data));
   }
 
   return;

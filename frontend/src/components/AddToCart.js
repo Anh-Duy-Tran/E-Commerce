@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 
+
 import * as React from 'react';
 import ProductImgSlider from './ProductImgSlider';
 import ProductInfo from './ProductInfo';
+
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
-  height: calc(100vh - 160px);
-  padding-top: 160px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  height: 600px;
   gap : 100px;
 `
 
@@ -20,25 +23,24 @@ const ImgSlider = styled.div`
 `
 
 const SideContainer = styled.div`
-  margin-top: 5vh;
+  padding-top: 20px;
   width: 30vw;
-  
 `
 
-const ShowProduct = ({product}) => {
+const AddToCart = ({product}) => {
 
   const [ color, setColor ] = React.useState(product.color[0])
 
   return (
     <Container>
       <ImgSlider>
-        <ProductImgSlider slides={product.image[color]} height={"80vh"}></ProductImgSlider>
+        <ProductImgSlider slides={product.image[color]} height={"600px"}></ProductImgSlider>
       </ImgSlider>
       <SideContainer>
-        <ProductInfo product={product} color={color} setColor={setColor}></ProductInfo>
+        <ProductInfo product={product} color={color} setColor={setColor} noDescription={true}></ProductInfo>
       </SideContainer>
     </Container>
   )
 }
 
-export default ShowProduct
+export default AddToCart

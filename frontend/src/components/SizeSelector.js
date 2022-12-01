@@ -37,7 +37,7 @@ const SizeSelector = ({size, selected, selector}) => {
       <Size>Size:</Size>
       <ButtonGroup sx={ButtonGroupStyle} orientation='vertical'>
         {
-          selected === '' 
+          selected === null
           ? size.map(
               option => <Button key={option}
                                 sx={ButtonStyle} 

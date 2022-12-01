@@ -1,10 +1,10 @@
 import HeroSlider, { Slide, SideNav } from "hero-slider";
 
-const ProductImgSlider = ({slides}) => {
+const ProductImgSlider = ({slides, height}) => {
   console.log(slides);
   return (
     <HeroSlider
-      height={"80vh"}
+      height={height}
       autoplay
       settings={{
         sliderColor: 'black'

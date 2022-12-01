@@ -15,7 +15,8 @@ function App() {
     <BrowserRouter>
       <Router>
         <Route path="/" 
-               element={<LandingPage category={allCategory}/>} 
+               element={<LandingPage category={allCategory}
+                                     allProducts={allProducts}/>} 
                />
         <Route path="/store/:id" 
                element={<StorePage category={allCategory}
