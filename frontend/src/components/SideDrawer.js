@@ -11,6 +11,7 @@ const ListHeader = styled.strong`
   font-size: 20px;
   padding-left: 25px;
   user-select: none;
+  font-family: Futura;
 `
 
 const linkStyle = {
@@ -19,6 +20,7 @@ const linkStyle = {
   paddingBottom: "10px",
   color: "black",
   fontSize : "16px",
+  fontFamily: "Futura"
 }
 
 const ListFromJson = ({category}) => {

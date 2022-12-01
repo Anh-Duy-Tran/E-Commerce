@@ -1,5 +1,8 @@
+import * as React from 'react';
+
 import styled from 'styled-components';
 import ColorSelector from './ColorSelector';
+import SizeSelector from './SizeSelector';
 
 const Container = styled.div`
 
@@ -16,7 +19,22 @@ const Description = styled.p`
   font-family: Futura
 `
 
-const ProductInfo = ({product, setColor}) => {
+const Price = styled.p`
+  padding-left: 5px;
+  padding-right: 25%;
+
+  font-family: Futura
+`
+
+
+const ProductInfo = ({product, color, setColor}) => {
+  const [ size, setSize ] = React.useState('')
+
+  const onChangeSizeClick = (newSize) => {
+    console.log(size, newSize);
+    setSize((prvSize) => prvSize === '' ? newSize : '')
+  }
+
   return (
     <Container>
       <Name>
@@ -25,8 +43,13 @@ const ProductInfo = ({product, setColor}) => {
       <Description>
         {product.description}
       </Description>
-      <ColorSelector color={product.color} onChangeColor={setColor}></ColorSelector>
 
+      <Price>
+        {product.price + " EUR"}
+      </Price>
+
+      <ColorSelector colors={product.color} color={color} onChangeColor={setColor}></ColorSelector>
+      <SizeSelector size={product.size} selected={size} selector={onChangeSizeClick} ></SizeSelector>
     </Container>
   )
 }

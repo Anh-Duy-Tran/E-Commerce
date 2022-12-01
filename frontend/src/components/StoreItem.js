@@ -39,7 +39,7 @@ const NameDiv = styled.div`
 
 const StoreItem = ({product, onClick}) => {
   return (
-    <Card sx={CardStyle} onClick={onClick}>
+    <Card sx={CardStyle}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -52,7 +52,7 @@ const StoreItem = ({product, onClick}) => {
         </NameDiv>
       </CardContent>
       <CardActions sx={{allignContent: 'center', justifyContent: 'center'}}>
-        <IconButton sc={{color:'black'}} aaria-label="add to cart">
+        <IconButton sc={{color:'black'}} aaria-label="add to cart" onClick={onClick}>
           <AddIcon></AddIcon>
         </IconButton>
       </CardActions>

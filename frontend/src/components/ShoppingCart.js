@@ -6,51 +6,31 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
+import cart from '../controllers/cart';
 
 const ListHeader = styled.strong`
-  font-size: 20px;
-  padding-left: 25px;
+  font-size: 40px;
+  font-family: Futura;
+  padding-left: 35px;
 `
 
 
-const ShoppingCart = ({onClick}) => (
-  <Box
-    sx={{ width: 650, paddingTop: '50px' }}
-    role="presentation"
-    onClick={onClick}
-    onKeyDown={onClick}
-  >
-    <ListHeader>Cart</ListHeader>
-    <List>
-      {['View All', 'For Woman', 'For Men'].map((text) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton>
-            <ListItemText primary={text} sx={{paddingLeft: "30px"}}/>
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-    <ListHeader>Men</ListHeader>
-    <List>
-      {['Bags', 'Travel', 'Accessories', 'Shoes'].map((text) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton>
-            <ListItemText primary={text} sx={{paddingLeft: "30px"}}/>
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-    <ListHeader>Women</ListHeader>
-    <List>
-      {['Bags', 'Travel', 'Accessories', 'Shoes'].map((text) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton>
-            <ListItemText primary={text} sx={{paddingLeft: "30px"}}/>
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-  </Box>
-);
+const allProductFromCart = cart.getAllProductFromCart();
+
+
+const ShoppingCart = ({onClick}) => {
+  console.log(allProductFromCart);
+  return (
+    <Box
+      sx={{ width: 650, paddingTop: '50px' }}
+      role="presentation"
+      onClick={onClick}
+      onKeyDown={onClick}
+    >
+      <ListHeader>CART ({cart.getCartCount()})</ListHeader>
+
+    </Box>
+  );
+}
 
 export default ShoppingCart;

@@ -9,17 +9,27 @@ const Container = styled.div`
 
 `
 
-const ColorSelector = ({color, onChangeColor}) => {
+const Color = styled.p`
+  padding-left: 5px;
+  font-family: Futura
+`
+
+const ColorSelector = ({colors, color, onChangeColor}) => {
   return (
     <Container>
-      {
-        color.map(
-          c => 
-          <IconButton onClick={() => onChangeColor(c)}>
-            <CircleIcon sx={{color : colorPalette[c]}}></CircleIcon>  
-          </IconButton>
-        )
-      }
+      <Container>
+        {
+          colors.map(
+            c => 
+            <IconButton key={c} onClick={() => onChangeColor(c)}>
+              <CircleIcon sx={{color : colorPalette[c]}}></CircleIcon>  
+            </IconButton>
+          )
+        }
+      </Container>
+      <Color>
+        {color}
+      </Color>
     </Container>
   )
 }

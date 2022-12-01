@@ -35,7 +35,7 @@ const ShowProduct = ({product}) => {
         <ProductImgSlider slides={product.image[color]}></ProductImgSlider>
       </ImgSlider>
       <SideContainer>
-        <ProductInfo product={product} setColor={setColor}></ProductInfo>
+        <ProductInfo product={product} color={color} setColor={setColor}></ProductInfo>
       </SideContainer>
     </Container>
   )

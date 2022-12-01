@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import product from '../../controllers/products';
+import products from '../../controllers/products';
+import cart from '../../controllers/cart';
 
 import { useParams } from 'react-router-dom';
 import Slide from '@mui/material/Slide';
@@ -12,6 +13,7 @@ import styled from 'styled-components';
 
 import Navbar from "../../components/Navbar";
 import StoreItem from '../../components/StoreItem';
+
 
 const Container = styled.div`
   display: flex;
@@ -59,37 +61,36 @@ function HideOnScroll(props) {
 }
 
 const StorePage = ({ category, allProducts, allStore}) => {
-  const [menu, setMenu] = React.useState(false);
-  const [cart, setCart] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [cartOpen, setCartOpen] = React.useState(false);
 
   const toggleMenu = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setMenu(! menu);
+    setMenuOpen((prvMenu) => !prvMenu);
   };
 
   const toggleCart = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setCart(! cart);
+    setCartOpen((prvCart) => !prvCart);
   };
 
   const onClick = (id) => {
-    console.log(id);
+    cart.addToCart(id);
   }
 
   const store = useParams().id;
-  console.log(product.getProductFromShop(allStore[store], allProducts));
 
   return (
     <Container>
         <HideOnScroll {...{}} sx={{padding : '0px !important'}}>
           <AppBar sx={{padding : '0px !important', background: 'transparent', boxShadow: 'none'}} >
           <Toolbar sx={{color : 'black', paddingLeft : '0px !important', paddingRight : '0px !important', paddingTop : '9px'}} >
-            <Navbar stateMenu={menu} 
-                    stateCart={cart}
+            <Navbar stateMenu={menuOpen} 
+                    stateCart={cartOpen}
                     onClickMenu={toggleMenu} 
                     onClickCart={toggleCart}
                     category={category}
@@ -100,7 +101,7 @@ const StorePage = ({ category, allProducts, allStore}) => {
         </HideOnScroll>
         <StoreContainer>
           {
-            product.getProductFromShop(allStore[store], allProducts).map(
+            products.getProductFromShop(allStore[store], allProducts).map(
               product => <StoreItem key={product._id} product={product} onClick={() => onClick(product._id)}></StoreItem>
             )
           }
