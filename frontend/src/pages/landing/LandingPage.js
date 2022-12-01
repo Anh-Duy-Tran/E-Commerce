@@ -3,7 +3,6 @@ import * as React from 'react';
 import Navbar from "../../components/Navbar";
 import PageHeroSlider from '../../components/HeroSlider';
 import styled from 'styled-components';
-import Button from '@mui/material/Button';
 import LandingPageHeroSlider from '../../static/LandingPageSlider.json'
 
 const Container = styled.div`

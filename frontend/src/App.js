@@ -24,7 +24,10 @@ function App() {
                                    />} 
               />
         <Route path="/products/:id" 
-               element={<ProductPage />} 
+               element={<ProductPage category={allCategory}
+                                     allProducts={allProducts}
+                                     allStore={allStore}
+                                     />} 
                />
       </Router>
     </BrowserRouter>

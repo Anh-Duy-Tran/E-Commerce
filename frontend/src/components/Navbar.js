@@ -65,6 +65,7 @@ const Logo = styled.p`
   font-family: Futura;
   user-select: none;
   z-index: 10;
+  color: 'black';
 `
 
 const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart, category}) => {
