@@ -72,7 +72,7 @@ const Logo = styled.p`
 
 const Navbar = () => {
 
-  const { products, category, menu, cart } = React.useContext(UserContext);
+  const { category, menu, cart } = React.useContext(UserContext);
   const [stateMenu, onClickMenu] = menu;
   const [stateCart, onClickCart] = cart;
 

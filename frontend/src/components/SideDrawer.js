@@ -5,6 +5,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import Link from '@mui/material/Link';
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 
 const ListHeader = styled.strong`
@@ -23,9 +25,8 @@ const linkStyle = {
   fontFamily: "Futura"
 }
 
-const ListFromJson = ({category}) => {
-  
-  
+const ListFromJson = () => {
+  const { category } = useContext(UserContext);
   const Section = ({sec}) => {
     return (
       <>

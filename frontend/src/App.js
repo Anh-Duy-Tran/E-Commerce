@@ -19,18 +19,9 @@ function App() {
     <UserContextProvider>
       <BrowserRouter>
         <Router>
-          <Route path="/" 
-                element={<LandingPage/>} 
-                />
-          <Route path="/store/:id" 
-                element={<StorePage/>} 
-                />
-          {/* <Route path="/products/:id" 
-                element={<ProductPage category={allCategory}
-                                      allProducts={allProducts}
-                                      allStore={allStore}
-                                      />} 
-                /> */}
+          <Route path="/" element={<LandingPage/>} />
+          <Route path="/store/:id" element={<StorePage/>} />
+          <Route path="/products/:id" element={<ProductPage/>} />
         </Router>
       </BrowserRouter>
     </UserContextProvider>
