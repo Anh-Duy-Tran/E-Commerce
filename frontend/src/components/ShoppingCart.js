@@ -7,9 +7,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import CartItem from './CartItem';
-
-import cart from '../controllers/cart';
-import products from '../controllers/products';
+import { useContext } from 'react';
+import cartController from '../controllers/cart';
+import productsController from '../controllers/products';
+import UserContext from '../context/UserContext';
 
 const ListHeader = styled.strong`
   font-size: 40px;
@@ -20,8 +21,11 @@ const ListHeader = styled.strong`
 
 
 
-const ShoppingCart = ({onClick, allProducts}) => {
-  const allProductFromCart = cart.getAllProductFromCart();
+const ShoppingCart = () => {
+  const { products, cart } = useContext(UserContext);
+  const [ cartOpen, onClick ] = cart;
+
+  const allProductFromCart = cartController.getAllProductFromCart();
   return (
     <Box
       sx={{ width: 650, paddingTop: '50px' }}
@@ -29,11 +33,11 @@ const ShoppingCart = ({onClick, allProducts}) => {
       onClick={onClick}
       onKeyDown={onClick}
     >
-      <ListHeader>CART ({cart.getCartCount()})</ListHeader>
+      <ListHeader>CART ({cartController.getCartCount()})</ListHeader>
       {
         allProductFromCart.map(
           productInfo => {
-            const product = products.findProduct(productInfo._id, allProducts);
+            const product = productsController.findProduct(productInfo._id, products);
             return (<CartItem key={productInfo.uniqueKey} orderId={productInfo.uniqueKey} product={product}></CartItem>)
           }
         )

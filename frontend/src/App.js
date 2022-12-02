@@ -10,28 +10,30 @@ import allCategory from './category.json';
 import allProducts from './products.json';
 import allStore from './store.json';
 
+import UserContextProvider from './context/UserContextProvider';
+
+
 function App() {
+
   return (
-    <BrowserRouter>
-      <Router>
-        <Route path="/" 
-               element={<LandingPage category={allCategory}
-                                     allProducts={allProducts}/>} 
-               />
-        <Route path="/store/:id" 
-               element={<StorePage category={allCategory}
-                                   allProducts={allProducts}
-                                   allStore={allStore}
-                                   />} 
-              />
-        <Route path="/products/:id" 
-               element={<ProductPage category={allCategory}
-                                     allProducts={allProducts}
-                                     allStore={allStore}
-                                     />} 
-               />
-      </Router>
-    </BrowserRouter>
+    <UserContextProvider>
+      <BrowserRouter>
+        <Router>
+          <Route path="/" 
+                element={<LandingPage/>} 
+                />
+          <Route path="/store/:id" 
+                element={<StorePage/>} 
+                />
+          {/* <Route path="/products/:id" 
+                element={<ProductPage category={allCategory}
+                                      allProducts={allProducts}
+                                      allStore={allStore}
+                                      />} 
+                /> */}
+        </Router>
+      </BrowserRouter>
+    </UserContextProvider>
   );
 }
 

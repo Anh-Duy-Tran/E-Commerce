@@ -10,6 +10,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from '@mui/material/Drawer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
+import UserContext from '../context/UserContext';
+
 
 const Container = styled.div`
   display: flex;
@@ -68,7 +70,12 @@ const Logo = styled.p`
   color: 'black';
 `
 
-const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart, category, allProducts}) => {
+const Navbar = () => {
+
+  const { products, category, menu, cart } = React.useContext(UserContext);
+  const [stateMenu, onClickMenu] = menu;
+  const [stateCart, onClickCart] = cart;
+
   return (
     <Container>
       <Wrapper>
@@ -101,7 +108,7 @@ const Navbar = ({stateMenu, stateCart, onClickMenu, onClickCart, category, allPr
                 open={stateCart}
                 onClose={onClickCart}
               >
-                {<ShoppingCart onClick={onClickCart} allProducts={allProducts}></ShoppingCart>}
+                <ShoppingCart/>
               </Drawer>
             </React.Fragment>
         </Right>

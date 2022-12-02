@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import products from '../../controllers/products';
+import productsController from '../../controllers/products';
 import cart from '../../controllers/cart';
 
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import Navbar from "../../components/Navbar";
 import StoreItem from '../../components/StoreItem';
 import AddToCart from '../../components/AddToCart';
+import UserContext from '../../context/UserContext';
 
 
 const Container = styled.div`
@@ -63,26 +64,10 @@ function HideOnScroll(props) {
   );
 }
 
-const StorePage = ({ category, allProducts, allStore}) => {
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const [cartOpen, setCartOpen] = React.useState(false);
-
+const StorePage = ({ allProducts, allStore}) => {
   const [addToCartOpen, setAddToCart] = React.useState(false);
   const [product, setProduct] = React.useState('');
-
-  const toggleMenu = (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setMenuOpen((prvMenu) => !prvMenu);
-  };
-
-  const toggleCart = (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setCartOpen((prvCart) => !prvCart);
-  };
+  const { products, stores } = React.useContext(UserContext);
 
   const toggleAddToCart = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -104,20 +89,13 @@ const StorePage = ({ category, allProducts, allStore}) => {
         <HideOnScroll {...{}} sx={{padding : '0px !important'}}>
           <AppBar sx={{padding : '0px !important', background: 'transparent', boxShadow: 'none'}} >
           <Toolbar sx={{color : 'black', paddingLeft : '0px !important', paddingRight : '0px !important', paddingTop : '9px'}} >
-            <Navbar stateMenu={menuOpen} 
-                    stateCart={cartOpen}
-                    onClickMenu={toggleMenu} 
-                    onClickCart={toggleCart}
-                    category={category}
-                    allProducts={allProducts}
-                    >
-            </Navbar>
+            <Navbar/>
           </Toolbar>
           </AppBar>
         </HideOnScroll>
         <StoreContainer>
           {
-            products.getProductFromShop(allStore[store], allProducts).map(
+            productsController.getProductFromShop(stores[store], products).map(
               product => <StoreItem key={product._id} product={product} onClick={() => onAddToCartClick(product._id)}></StoreItem>
             )
           }
@@ -127,7 +105,7 @@ const StorePage = ({ category, allProducts, allStore}) => {
           open={addToCartOpen}
           onClose={toggleAddToCart}
         >
-          <AddToCart product={products.findProduct(product, allProducts)}></AddToCart>
+          <AddToCart product={productsController.findProduct(product, products)}></AddToCart>
         </Drawer>
     </Container>
   )

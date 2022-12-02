@@ -22,35 +22,10 @@ const Footer = styled.div`
 `
 
 
-const LandingPage = ({category, allProducts}) => {
-
-  const [menu, setMenu] = React.useState(false);
-  const [cart, setCart] = React.useState(false);
-
-  const toggleMenu = (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setMenu(! menu);
-  };
-
-  const toggleCart = (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setCart(! cart);
-  };
-
-
+const LandingPage = () => {
   return (
     <Container>
-        <Navbar stateMenu={menu} 
-                stateCart={cart}
-                onClickMenu={toggleMenu} 
-                onClickCart={toggleCart}
-                category={category}
-                allProducts={allProducts}
-                >
+        <Navbar>
         </Navbar>
         <PageHeroSlider slides={LandingPageHeroSlider}></PageHeroSlider>
         <Footer>
