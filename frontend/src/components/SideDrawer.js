@@ -34,8 +34,8 @@ const ListFromJson = () => {
         <List>
           {Array.from(sec.paths).map(({tile, path}) => (
             <ListItem key={tile} disablePadding>
-              <ListItemButton>
-                <Link href={"/store" + path} sx={linkStyle} underline="hover">
+              <ListItemButton href={"/store" + path}>
+                <Link sx={linkStyle} underline="hover">
                   {tile}
                 </Link>
               </ListItemButton>
