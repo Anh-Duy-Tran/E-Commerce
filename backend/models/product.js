@@ -1,11 +1,23 @@
-import { mongo, Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+
+const SCHEMA_DEFAULTS = {
+  name: {
+    minLength: 1,
+    maxLength: 50
+  },
+};
 
 const productSchema = new Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    minLength: SCHEMA_DEFAULTS.name.minLength,
+    maxLength: SCHEMA_DEFAULTS.name.maxLength,
   },
+
   price: {
     type: Number,
     required: true,
@@ -14,20 +26,41 @@ const productSchema = new Schema({
         return n > 0;
       },
       message: 'price cannot be 0'
-    } 
+    }
   },
+
   color: {
-    type: [String],
-    required: true
+    type : [String],
+    require : true
   },
+
+  size: {
+    type : [String],
+    require : true
+  },
+
+  idle: {
+    type : String,
+    require : true
+  },
+
+  active: {
+    type : String,
+    require : true
+  },
+
   image: {
-    type: Object
+    type: Object,
+    require : true
   },
+
   description: {
-    type: String
+    type: String,
+    require : true
   }
 });
 
 productSchema.set('toJSON', { virtuals: false, versionKey: false });
 
-const Product = new mongo
+const Product = new mongoose.model('Product', productSchema);
+module.exports = Product;

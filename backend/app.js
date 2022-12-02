@@ -1,14 +1,23 @@
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
+require('dotenv').config();
+
+const { connectDB, disconnectDB } = require('./models/db');
+const express = require('express');
+const cors = require('cors');
+
+const loginRouter = require('./controllers/login');
+const landingRouter = require('./controllers/landing');
+const registerRouter = require('./controllers/register');
+const productsRouter = require('./controllers/products')
 
 const app = express();
 
-
-const mongoUrl = 'mongodb://localhost/bloglist';
-mongoose.connect(mongoUrl);
-
+connectDB();
 app.use(cors());
 app.use(express.json());
 
-export default app;
+app.use('/api/register', registerRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/landing', landingRouter);
+app.use('/api/products', productsRouter);
+
+module.exports = app;

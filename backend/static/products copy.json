@@ -1,0 +1,112 @@
+{
+  "123abc" : {
+    "_id" : "123abc",
+    "name": "100% WOOL SUIT TROUSERS",
+    "price": 59.95,
+    "color" : ["Navy Blue", "Brown"],
+    "size" : ["38", "40", "42", "46"],
+    "idle" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+    "active" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_1_1.jpg?ts=1667219567153",
+    "image": {
+       "Navy Blue" : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_1_1.jpg?ts=1667219567153",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_2_1.jpg?ts=1667219571641",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_1_1.jpg?ts=1662463051758",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_3_1.jpg?ts=1662463086464"
+                    ],
+        "Brown"    : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_1_1_1.jpg?ts=1668504972325",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_2_1_1.jpg?ts=1667218890226",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/700/2/w/850/5930390700_6_1_1.jpg?ts=1662109813883"]
+    },
+
+    "description": "Straight fit wool trousers with side pockets and a rear buttoned jetted pocket. Zip fly and hidden metal hook fastening on the front."
+  },
+  "456abc" : {
+    "_id" : "456abc",
+    "name": "100% WOOL SUIT TROUSERS",
+    "price": 59.95,
+    "color" : ["Navy Blue", "Brown"],
+    "size" : ["38", "40", "42", "46"],
+    "idle" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_1_1.jpg?ts=1667219567153",
+    "active" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+    "image": {
+       "Navy Blue" : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_1_1.jpg?ts=1667219567153",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_2_1.jpg?ts=1667219571641",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_1_1.jpg?ts=1662463051758",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_3_1.jpg?ts=1662463086464"
+                    ],
+        "Brown"    : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_1_1_1.jpg?ts=1668504972325",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_2_1_1.jpg?ts=1667218890226",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/700/2/w/850/5930390700_6_1_1.jpg?ts=1662109813883"]
+    },
+
+    "description": "Straight fit wool trousers with side pockets and a rear buttoned jetted pocket. Zip fly and hidden metal hook fastening on the front."
+  },
+  "1" : {
+    "_id" : "1",
+    "name": "100% WOOL SUIT TROUSERS",
+    "price": 59.95,
+    "color" : ["Navy Blue", "Brown"],
+    "size" : ["38", "40", "42", "46"],
+    "idle" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_2_1.jpg?ts=1667219571641",
+    "active" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+    "image": {
+       "Navy Blue" : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_1_1.jpg?ts=1667219567153",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_2_1.jpg?ts=1667219571641",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_1_1.jpg?ts=1662463051758",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_3_1.jpg?ts=1662463086464"
+                    ],
+        "Brown"    : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_1_1_1.jpg?ts=1668504972325",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_2_1_1.jpg?ts=1667218890226",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/700/2/w/850/5930390700_6_1_1.jpg?ts=1662109813883"]
+    },
+
+    "description": "Straight fit wool trousers with side pockets and a rear buttoned jetted pocket. Zip fly and hidden metal hook fastening on the front."
+  },
+  "2" : {
+    "_id" : "2",
+    "name": "100% WOOL SUIT TROUSERS",
+    "price": 59.95,
+    "color" : ["Navy Blue", "Brown"],
+    "size" : ["38", "40", "42", "46"],
+    "idle" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_1_1_1.jpg?ts=1668504972325",
+    "active" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+    "image": {
+       "Navy Blue" : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_1_1.jpg?ts=1667219567153",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_2_1.jpg?ts=1667219571641",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_1_1.jpg?ts=1662463051758",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_3_1.jpg?ts=1662463086464"
+                    ],
+        "Brown"    : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_1_1_1.jpg?ts=1668504972325",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_2_1_1.jpg?ts=1667218890226",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/700/2/w/850/5930390700_6_1_1.jpg?ts=1662109813883"]
+    },
+
+    "description": "Straight fit wool trousers with side pockets and a rear buttoned jetted pocket. Zip fly and hidden metal hook fastening on the front."
+  },
+  "3" : {
+    "_id" : "3",
+    "name": "100% WOOL SUIT TROUSERS",
+    "price": 59.95,
+    "color" : ["Navy Blue", "Brown"],
+    "size" : ["38", "40", "42", "46"],
+    "idle" : "https://static.zara.net/photos///2022/I/0/2/p/5930/390/700/2/w/850/5930390700_6_1_1.jpg?ts=1662109813883",
+    "active" : "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+    "image": {
+       "Navy Blue" : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_1_1_1.jpg?ts=1667219570922",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_1_1.jpg?ts=1667219567153",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/401/82/w/850/5930390401_2_2_1.jpg?ts=1667219571641",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_1_1.jpg?ts=1662463051758",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/401/2/w/850/5930390401_6_3_1.jpg?ts=1662463086464"
+                    ],
+        "Brown"    : ["https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_1_1_1.jpg?ts=1668504972325",
+                      "https://static.zara.net/photos///2022/I/0/1/p/5930/390/700/82/w/850/5930390700_2_1_1.jpg?ts=1667218890226",
+                      "https://static.zara.net/photos///2022/I/0/2/p/5930/390/700/2/w/850/5930390700_6_1_1.jpg?ts=1662109813883"]
+    },
+
+    "description": "Straight fit wool trousers with side pockets and a rear buttoned jetted pocket. Zip fly and hidden metal hook fastening on the front."
+  }
+}

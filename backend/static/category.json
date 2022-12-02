@@ -1,0 +1,72 @@
+[
+  {
+    "tile" : "New Arrivals",
+    "paths" : [
+      {
+        "tile" : "View All",
+        "path" : "/all"
+      },
+      {
+        "tile" : "For Woman",
+        "path" : "/woman"
+      },
+      {
+        "tile" : "For Man",
+        "path" : "/men"
+      }
+    ]
+  },
+  {
+    "tile" : "Men",
+    "paths" : [
+      {
+        "tile" : "Bags",
+        "path" : "/men/bags"
+      },
+      {
+        "tile" : "Travel",
+        "path" : "/men/travels"
+      },
+      {
+        "tile" : "Accessories",
+        "path" : "/men/accessories"
+      },
+      {
+        "tile" : "Shoes",
+        "path" : "/men/shoes"
+      }
+    ]
+  },
+
+  {
+    "tile" : "Woman",
+    "paths" : [
+      {
+        "tile" : "Bags",
+        "path" : "/woman/bags"
+      },
+      {
+        "tile" : "Travel",
+        "path" : "/woman/travels"
+      },
+      {
+        "tile" : "Accessories",
+        "path" : "/woman/accessories"
+      },
+      {
+        "tile" : "Shoes",
+        "path" : "/woman/shoes"
+      }
+    ]
+  },
+
+  {
+    "tile" : "About Me",
+    "paths" : [
+      {
+        "tile" : "Github",
+        "path" : "/github"
+      }
+    ]
+  }
+]
