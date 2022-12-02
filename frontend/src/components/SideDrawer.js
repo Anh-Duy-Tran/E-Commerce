@@ -7,6 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Link from '@mui/material/Link';
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
+import { Typography } from '@mui/material';
 
 
 const ListHeader = styled.strong`
@@ -35,9 +36,9 @@ const ListFromJson = () => {
           {Array.from(sec.paths).map(({tile, path}) => (
             <ListItem key={tile} disablePadding>
               <ListItemButton href={"/store" + path}>
-                <Link sx={linkStyle} underline="hover">
+                <Typography sx={linkStyle} underline="hover">
                   {tile}
-                </Link>
+                </Typography>
               </ListItemButton>
             </ListItem>
           ))}

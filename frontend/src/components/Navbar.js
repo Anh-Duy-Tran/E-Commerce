@@ -77,9 +77,12 @@ const Logo = styled.p`
 
 const Navbar = () => {
 
-  const { category, menu, cart } = React.useContext(UserContext);
-  const [stateMenu, onClickMenu] = menu;
-  const [stateCart, onClickCart] = cart;
+  const [ openLogin, setOpenLogin ] = React.useState(false);
+
+  const { user, category, menu, cart } = React.useContext(UserContext);
+  
+  const [menuOpen, toggleMenu] = menu;
+  const [cartOpen, toggleCart] = cart;
 
   return (
     <Container>
@@ -91,7 +94,7 @@ const Navbar = () => {
             </IconButton>
             <Drawer
               anchor={'left'}
-              open={menu}
+              open={menuOpen}
               onClose={toggleMenu}
             >
               {<SideDrawer category={category} onClick={toggleMenu}></SideDrawer>}
@@ -105,9 +108,9 @@ const Navbar = () => {
 
         <Right>
           {
-            user === null
-            ? <Button sx={ButtonStyle} onClick={() => setOpenLogin(true)}>Login</Button>
-            : <p>Hi, {user.username}!</p>
+            user[0] === null
+            ? <Button sx={{}} onClick={() => setOpenLogin(true)}>Login</Button>
+            : <p>Hi, {user[0].username}!</p>
           }
           <LoginModal openLogin={openLogin} setOpenLogin={setOpenLogin}></LoginModal>
           <React.Fragment key='right'>
@@ -118,7 +121,7 @@ const Navbar = () => {
               </IconButton>
               <Drawer
                 anchor={'right'}
-                open={cart}
+                open={cartOpen}
                 onClose={toggleCart}
               >
                 <ShoppingCart/>

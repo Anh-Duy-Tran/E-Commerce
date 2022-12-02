@@ -23,7 +23,6 @@ const Footer = styled.div`
 
 
 const LandingPage = () => {
-  console.log(React.useContext);
   return (
     <Container>
         <Navbar></Navbar>

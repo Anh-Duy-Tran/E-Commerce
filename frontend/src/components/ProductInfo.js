@@ -35,7 +35,6 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
   const [ snackMessage, setSnackMessage] = React.useState(null);
 
   const onChangeSizeClick = (newSize) => {
-    console.log(size, newSize);
     setSize((prvSize) => prvSize === null ? newSize : null)
   }
 

@@ -1,7 +1,6 @@
 import HeroSlider, { Slide, SideNav } from "hero-slider";
 
 const ProductImgSlider = ({slides, height}) => {
-  console.log(slides);
   return (
     <HeroSlider
       height={height}
