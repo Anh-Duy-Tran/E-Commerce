@@ -1,6 +1,8 @@
 import HeroSlider, { Slide, MenuNav } from "hero-slider";
 
-const PageHeroSlider = ({slides}) => {
+import LandingPageHeroSlider from '../static/LandingPageSlider.json';
+
+const PageHeroSlider = () => {
   return (
     <HeroSlider
       height={"100vh"}
@@ -12,7 +14,7 @@ const PageHeroSlider = ({slides}) => {
       }}
     >
     {
-      slides.map(
+      LandingPageHeroSlider.map(
         slide => <Slide key={slide.title}
                         shouldRenderMask
                         label={slide.tilte}
@@ -22,8 +24,6 @@ const PageHeroSlider = ({slides}) => {
         />
       )
     }
-
-      {/* <MenuNav /> */}
     </HeroSlider>
   );
 }

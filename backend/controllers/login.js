@@ -6,7 +6,6 @@ const loginRouter = require('express').Router()
 const jwt = require('jsonwebtoken');
 
 loginRouter.post('/', async (req, res) => {
-
   const username = req.body.username;
   const password = req.body.password;
 

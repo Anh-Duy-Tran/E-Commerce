@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import ColorSelector from './ColorSelector';
 import SizeSelector from './SizeSelector';
+import Snackbar from '@mui/material/Snackbar';
 
 import cart from '../controllers/cart';
 
@@ -30,7 +31,8 @@ const Price = styled.p`
 
 
 const ProductInfo = ({product, color, setColor, noDescription}) => {
-  const [ size, setSize ] = React.useState(null)
+  const [ size, setSize ] = React.useState(null);
+  const [ snackMessage, setSnackMessage] = React.useState(null);
 
   const onChangeSizeClick = (newSize) => {
     console.log(size, newSize);
@@ -39,9 +41,11 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
 
   const addToCart = (product) => {
     if (size === null) {
+      setSnackMessage("Please choose a size!")
       return;
     }
     cart.addToCart(product._id, color, size);
+    setSnackMessage("Item added!")
   }
 
   return (
@@ -65,6 +69,13 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
       <ColorSelector colors={product.color} color={color} onChangeColor={setColor}></ColorSelector>
       <SizeSelector size={product.size} selected={size} selector={onChangeSizeClick} ></SizeSelector>
       <button onClick={() => addToCart(product)}>Add to cart</button>
+      <Snackbar
+        open={snackMessage !== null}
+        autoHideDuration={6000}
+        onClose={ () => setSnackMessage(null) }
+        message={snackMessage}
+        // action={action}
+      />
     </Container>
   )
 }

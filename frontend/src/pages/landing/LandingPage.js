@@ -3,7 +3,7 @@ import * as React from 'react';
 import Navbar from "../../components/Navbar";
 import PageHeroSlider from '../../components/HeroSlider';
 import styled from 'styled-components';
-import LandingPageHeroSlider from '../../static/LandingPageSlider.json'
+
 
 const Container = styled.div`
   display: flex;
@@ -23,11 +23,11 @@ const Footer = styled.div`
 
 
 const LandingPage = () => {
+  console.log(React.useContext);
   return (
     <Container>
-        <Navbar>
-        </Navbar>
-        <PageHeroSlider slides={LandingPageHeroSlider}></PageHeroSlider>
+        <Navbar></Navbar>
+        <PageHeroSlider></PageHeroSlider>
         <Footer>
           {/* <Button variant="outlined" sx={{ color: 'black'}}>SHOP NOW</Button> */}
         </Footer>

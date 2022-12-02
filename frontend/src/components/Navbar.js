@@ -4,14 +4,19 @@ import styled from 'styled-components';
 
 import SideDrawer from './SideDrawer';
 import ShoppingCart from './ShoppingCart';
+import LoginModal from './LoginModal';
 
 import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from '@mui/material/Drawer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Button from '@mui/material/Button';
+import Cookies from 'js-cookie';
+
+import cartController from '../controllers/cart';
 
 import UserContext from '../context/UserContext';
-
 
 const Container = styled.div`
   display: flex;
@@ -81,15 +86,15 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <React.Fragment key='left'>
-            <IconButton aria-label="hamburger" onClick={onClickMenu} sx={{ zIndex: 10, color: 'black' }}> 
+            <IconButton aria-label="Store" onClick={toggleMenu} sx={{ zIndex: 10, color: 'black' }}> 
               <MenuIcon sx={{ fontSize: 40 }}></MenuIcon>
             </IconButton>
             <Drawer
               anchor={'left'}
-              open={stateMenu}
-              onClose={onClickMenu}
+              open={menu}
+              onClose={toggleMenu}
             >
-              {<SideDrawer category={category} onClick={onClickMenu}></SideDrawer>}
+              {<SideDrawer category={category} onClick={toggleMenu}></SideDrawer>}
             </Drawer>
           </React.Fragment>
         </Left>
@@ -99,14 +104,22 @@ const Navbar = () => {
         </Center>
 
         <Right>
+          {
+            user === null
+            ? <Button sx={ButtonStyle} onClick={() => setOpenLogin(true)}>Login</Button>
+            : <p>Hi, {user.username}!</p>
+          }
+          <LoginModal openLogin={openLogin} setOpenLogin={setOpenLogin}></LoginModal>
           <React.Fragment key='right'>
-              <IconButton aria-label="hamburger" onClick={onClickCart} sx={{ zIndex: 10, color: 'black' }} > 
-                <ShoppingCartOutlinedIcon sx={{ fontSize: 40 }}></ShoppingCartOutlinedIcon>
+              <IconButton aria-label="Shopping cart" onClick={toggleCart} sx={{ zIndex: 10, color: 'black' }} > 
+                <Badge color="error" badgeContent={cartController.getCartCount()}>
+                  <ShoppingCartOutlinedIcon sx={{ fontSize: 40 }}></ShoppingCartOutlinedIcon>
+                </Badge>
               </IconButton>
               <Drawer
                 anchor={'right'}
-                open={stateCart}
-                onClose={onClickCart}
+                open={cart}
+                onClose={toggleCart}
               >
                 <ShoppingCart/>
               </Drawer>
