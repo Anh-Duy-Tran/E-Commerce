@@ -16,6 +16,8 @@ import AddToCart from '../../components/AddToCart';
 
 import { UserContext } from '../../context/User/UserProvider';
 
+import productService from '../../services/products'
+
 
 const Container = styled.div`
   display: flex;
@@ -60,10 +62,21 @@ function HideOnScroll(props) {
 }
 
 const StorePage = () => {
-  const { state } = React.useContext(UserContext);
+  const { state, dispatch } = React.useContext(UserContext);
+  const store = useParams();
+  const [ addToCartOpen, setAddToCart ] = React.useState(false);
+  const [ product, setProduct ] = React.useState(null);
 
-  const [addToCartOpen, setAddToCart] = React.useState(false);
-  const [product, setProduct] = React.useState('');
+  React.useEffect(() => {
+    dispatch({ type : "fetching" });
+    productService
+      .fetchProductFromStore(store)
+      .then(products => {
+        dispatch({ type : "update-products", payload : products });
+        dispatch({ type : "fetch-success" });
+      });
+  }, [store])
+
 
   const toggleAddToCart = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -73,11 +86,12 @@ const StorePage = () => {
   }
 
   const onAddToCartClick = (id) => {
-    setProduct(id);
+    const product = productsController.findProduct(id, state.products);
+    setProduct(product);
     setAddToCart(true);
   }
 
-  const store = useParams().id;
+  
 
   return (
     <Container>
@@ -93,7 +107,9 @@ const StorePage = () => {
         ? <>
           <StoreContainer>
             {
-              productsController.getProductFromShop(state.stores[store], state.products).map(
+              Array
+              .from(state.products)
+              .map(
                 product => <StoreItem key={product._id} product={product} onClick={() => onAddToCartClick(product._id)}></StoreItem>
               )
             }
@@ -103,7 +119,7 @@ const StorePage = () => {
             open={addToCartOpen}
             onClose={toggleAddToCart}
           >
-            <AddToCart product={productsController.findProduct(product, state.products)}></AddToCart>
+            <AddToCart product={product}></AddToCart>
           </Drawer>
         </>
         : null

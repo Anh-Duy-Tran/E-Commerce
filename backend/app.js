@@ -8,6 +8,9 @@ const loginRouter = require('./controllers/login');
 const landingRouter = require('./controllers/landing');
 const registerRouter = require('./controllers/register');
 const productsRouter = require('./controllers/products');
+const authRouter = require('./controllers/auth');
+const storeRouter = require('./controllers/store');
+const categoryRouter = require('./controllers/category');
 const authenticateToken = require('./auth/auth');
 
 const app = express();
@@ -20,8 +23,8 @@ app.use('/api/register', registerRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/landing', landingRouter);
 app.use('/api/products', productsRouter);
-app.use('/api/auth', authenticateToken, (req, res) => {
-  res.status(200).end();
-})
+app.use('/api/store', storeRouter);
+app.use('/api/category', categoryRouter);
+app.use('/api/auth', authRouter);
 
 module.exports = app;

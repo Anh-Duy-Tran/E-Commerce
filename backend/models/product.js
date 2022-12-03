@@ -29,8 +29,13 @@ const productSchema = new Schema({
     }
   },
 
-  color: {
+  type : {
     type : [String],
+    required : true
+  },
+
+  color: {
+    type : [Object],
     require : true
   },
 

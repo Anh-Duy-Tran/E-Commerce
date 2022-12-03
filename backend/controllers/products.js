@@ -1,11 +1,25 @@
 const productsRouter = require('express').Router()
+const mongoose = require('mongoose');
 
 const authenticate = require('../auth/auth');
 
 const Products = require('../models/product');
 
 productsRouter.get('/', async (req, res) => {
-  res.json(await Products.find({}));
+  return res.json(await Products.find({}).exec());
+})
+
+productsRouter.get('/:id', async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error : "Product not found."})
+  }
+  
+  const product = await Products.findOne({ _id : req.params.id}).exec();
+  
+  if (product === null) {
+    return res.status(400).json({ error : "Product not found."})
+  }
+  return res.status(200).json(product);
 })
 
 productsRouter.post('/', authenticate, async (req, res) => {

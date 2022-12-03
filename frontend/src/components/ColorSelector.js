@@ -21,8 +21,8 @@ const ColorSelector = ({colors, color, onChangeColor}) => {
         {
           colors.map(
             c => 
-            <IconButton key={c} onClick={() => onChangeColor(c)}>
-              <CircleIcon sx={{color : colorPalette[c]}}></CircleIcon>  
+            <IconButton key={c.name} onClick={() => onChangeColor(c.name)}>
+              <CircleIcon sx={{color : c.code}}></CircleIcon>  
             </IconButton>
           )
         }

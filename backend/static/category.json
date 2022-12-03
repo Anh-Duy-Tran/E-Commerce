@@ -20,20 +20,16 @@
     "tile" : "Men",
     "paths" : [
       {
-        "tile" : "Bags",
-        "path" : "/men/bags"
+        "tile" : "All",
+        "path" : "/men"
       },
       {
-        "tile" : "Travel",
-        "path" : "/men/travels"
+        "tile" : "Shirt",
+        "path" : "/men/shirt"
       },
       {
-        "tile" : "Accessories",
-        "path" : "/men/accessories"
-      },
-      {
-        "tile" : "Shoes",
-        "path" : "/men/shoes"
+        "tile" : "Trouser",
+        "path" : "/men/trouser"
       }
     ]
   },

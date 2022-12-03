@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { reducer, initialState } from "./reducer.js";
 
-import allCategory from '../../category.json';
-import allProducts from '../../products.json';
-import allStore from '../../store.json';
-
 import loginService from '../../services/login';
 import productService from '../../services/products';
 
@@ -39,15 +35,13 @@ export const UserProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   useEffect(() => {
-    dispatch({ type : "fetching", payload : allProducts });
+    dispatch({ type : "fetching" });
 
     productService
       .fetchCategory()
-      .then(products => {
-        console.log(products);
-        dispatch({ type : "update-products", payload : products });
-        dispatch({ type : "update-category", payload : allCategory });
-        dispatch({ type : "fetch-success", payload : allProducts });
+      .then(category => {
+        dispatch({ type : "update-category", payload : category });
+        dispatch({ type : "fetch-success" });
       })
   }, [])
 

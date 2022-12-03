@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import * as React from 'react';
 import ProductImgSlider from './ProductImgSlider';
 import ProductInfo from './ProductInfo';
-
+import { UserContext } from '../context/User/UserProvider';
+import productsController from '../controllers/products';
 
 const Container = styled.div`
   display: flex;
@@ -28,8 +29,7 @@ const SideContainer = styled.div`
 `
 
 const AddToCart = ({product}) => {
-
-  const [ color, setColor ] = React.useState(product.color[0])
+  const [ color, setColor ] = React.useState(product.color[0].name);
 
   return (
     <Container>
