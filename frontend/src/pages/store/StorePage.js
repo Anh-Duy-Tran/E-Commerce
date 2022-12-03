@@ -89,7 +89,7 @@ const StorePage = () => {
           </AppBar>
         </HideOnScroll>
         {
-        Object.keys(state.products).length !== 0 
+        state.fetchStatus === 'success'
         ? <>
           <StoreContainer>
             {

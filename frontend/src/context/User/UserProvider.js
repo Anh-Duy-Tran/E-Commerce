@@ -5,8 +5,8 @@ import allCategory from '../../category.json';
 import allProducts from '../../products.json';
 import allStore from '../../store.json';
 
-import loginService from '../../services/login'
-import Cookies from 'js-cookie';
+import loginService from '../../services/login';
+import productService from '../../services/products';
 
 const parseJwt = (token) => {
   var base64Url = token.split('.')[1];
@@ -39,9 +39,16 @@ export const UserProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   useEffect(() => {
-    dispatch({ type : "update-products", payload : allProducts });
-    dispatch({ type : "update-category", payload : allCategory });
-    dispatch({ type : "update-store", payload : allStore });
+    dispatch({ type : "fetching", payload : allProducts });
+
+    productService
+      .fetchCategory()
+      .then(products => {
+        console.log(products);
+        dispatch({ type : "update-products", payload : products });
+        dispatch({ type : "update-category", payload : allCategory });
+        dispatch({ type : "fetch-success", payload : allProducts });
+      })
   }, [])
 
   return (

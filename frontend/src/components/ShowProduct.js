@@ -6,6 +6,7 @@ import ProductInfo from './ProductInfo';
 
 import productsController from '../controllers/products';
 import { UserContext } from '../context/User/UserProvider';
+import Loading from './Loading';
 
 const Container = styled.div`
   display: flex;
@@ -30,17 +31,21 @@ const SideContainer = styled.div`
 
 const ShowProduct = ({productId}) => {
   const { state } = React.useContext(UserContext);
-  
-  if (Object.keys(state.products).length === 0) {
-    return null;
+  const [ color, setColor ] = React.useState(null)
+
+  if (state.fetchStatus !== 'success')
+  {
+    return (
+      <Loading></Loading>
+    )
   }
-  const [ color, setColor ] = React.useState(product.color[0])
 
   const product = productsController.findProduct(productId, state.products);
+  if (color === null) setColor(product.color[0])
+  console.log(product.image[color]);
 
-  console.log(product);
   return (
-    Object.keys(state.products).length !== 0 
+    state.fetchStatus === 'success'
     ?
     <Container>
       <ImgSlider>
@@ -50,7 +55,7 @@ const ShowProduct = ({productId}) => {
         <ProductInfo product={product} color={color} setColor={setColor}></ProductInfo>
       </SideContainer>
     </Container>
-    : null
+    : <Loading></Loading>
   )
 }
 

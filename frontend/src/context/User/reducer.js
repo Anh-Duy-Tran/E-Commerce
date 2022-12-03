@@ -146,6 +146,20 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "fetching" : {
+      return {
+        ...state,
+        fetchStatus : 'loading'
+      }
+    }
+
+    case "fetch-success" : {
+      return {
+        ...state,
+        fetchStatus : 'success'
+      }
+    }
+
     default:
       return state
   }
@@ -157,6 +171,7 @@ export const initialState = {
   menuOpen : false,
   cartOpen : false,
   loginOpen: false,
+  fetchStatus: undefined,
 
   products : {},
   category : {},
