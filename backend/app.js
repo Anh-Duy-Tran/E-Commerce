@@ -11,11 +11,11 @@ const productsRouter = require('./controllers/products');
 const authRouter = require('./controllers/auth');
 const storeRouter = require('./controllers/store');
 const categoryRouter = require('./controllers/category');
-const authenticateToken = require('./auth/auth');
 
 const app = express();
 
 connectDB();
+
 app.use(cors());
 app.use(express.json());
 
