@@ -28,7 +28,6 @@ const LandingPage = () => {
         <Navbar></Navbar>
         <PageHeroSlider></PageHeroSlider>
         <Footer>
-          {/* <Button variant="outlined" sx={{ color: 'black'}}>SHOP NOW</Button> */}
         </Footer>
     </Container>
   )

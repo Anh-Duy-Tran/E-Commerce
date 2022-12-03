@@ -10,8 +10,11 @@ const login = async (payload) => {
 }
 
 const authenticate = async (token) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
   return axios
-    .get(AUTH_URL, token)
+    .get(AUTH_URL, config)
     .then(res => res.data)
     .catch((err) => console.log(err));
 }

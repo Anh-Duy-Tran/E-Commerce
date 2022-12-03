@@ -1,22 +1,20 @@
 import * as React from 'react';
 
 import productsController from '../../controllers/products';
-import cart from '../../controllers/cart';
 
 import { useParams } from 'react-router-dom';
 import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Drawer from '@mui/material/Drawer';
 import styled from 'styled-components';
-import Box from '@mui/material/Box';
 
 import Navbar from "../../components/Navbar";
 import StoreItem from '../../components/StoreItem';
 import AddToCart from '../../components/AddToCart';
-import UserContext from '../../context/UserContext';
+
+import { UserContext } from '../../context/User/UserProvider';
 
 
 const Container = styled.div`
@@ -50,9 +48,6 @@ const StoreContainer = styled.div`
 
 function HideOnScroll(props) {
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
   });
@@ -64,17 +59,17 @@ function HideOnScroll(props) {
   );
 }
 
-const StorePage = ({ allProducts, allStore}) => {
+const StorePage = () => {
+  const { state } = React.useContext(UserContext);
+
   const [addToCartOpen, setAddToCart] = React.useState(false);
   const [product, setProduct] = React.useState('');
-  const { products, stores } = React.useContext(UserContext);
 
   const toggleAddToCart = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setAddToCart((prvValue) => !prvValue);
-    // cart.addToCart(id);
   }
 
   const onAddToCartClick = (id) => {
@@ -86,27 +81,33 @@ const StorePage = ({ allProducts, allStore}) => {
 
   return (
     <Container>
-        <HideOnScroll {...{}} sx={{padding : '0px !important'}}>
+        <HideOnScroll sx={{padding : '0px !important'}}>
           <AppBar sx={{padding : '0px !important', background: 'transparent', boxShadow: 'none'}} >
           <Toolbar sx={{color : 'black', paddingLeft : '0px !important', paddingRight : '0px !important', paddingTop : '9px'}} >
             <Navbar/>
           </Toolbar>
           </AppBar>
         </HideOnScroll>
-        <StoreContainer>
-          {
-            productsController.getProductFromShop(stores[store], products).map(
-              product => <StoreItem key={product._id} product={product} onClick={() => onAddToCartClick(product._id)}></StoreItem>
-            )
-          }
-        </StoreContainer>
-        <Drawer
-          anchor={'bottom'}
-          open={addToCartOpen}
-          onClose={toggleAddToCart}
-        >
-          <AddToCart product={productsController.findProduct(product, products)}></AddToCart>
-        </Drawer>
+        {
+        Object.keys(state.products).length !== 0 
+        ? <>
+          <StoreContainer>
+            {
+              productsController.getProductFromShop(state.stores[store], state.products).map(
+                product => <StoreItem key={product._id} product={product} onClick={() => onAddToCartClick(product._id)}></StoreItem>
+              )
+            }
+          </StoreContainer>
+          <Drawer
+            anchor={'bottom'}
+            open={addToCartOpen}
+            onClose={toggleAddToCart}
+          >
+            <AddToCart product={productsController.findProduct(product, state.products)}></AddToCart>
+          </Drawer>
+        </>
+        : null
+        }
     </Container>
   )
 }

@@ -6,40 +6,22 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 
-import service from '../services/login';
+import loginService from '../services/login';
+import { UserContext } from '../context/User/UserProvider';
 
 const theme = createTheme();
 
-const SignIn = ({handleClose}) => {
-  
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const credentials = {
-      username: data.get('username'),
-      password: data.get('password'),
-    };
-
-    try {
-      Cookies.set('access_token', await service.login(credentials));
-      handleClose();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const SignIn = ({handleSubmit}) => {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -118,16 +100,63 @@ const style = {
   p: 4,
 };
 
-const LoginModal = ({openLogin, setOpenLogin}) => {  
-  const handleOpen = () => setOpenLogin(true);
-  const handleClose = () => setOpenLogin(false);
+const parseJwt = (token) => {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
 
+  return JSON.parse(jsonPayload);
+}
+
+const authToken = (token) => {
+  if (token === undefined) {
+    return Promise.resolve(false);
+  }
+
+  return loginService
+    .authenticate(token)
+    .then(() => true)
+    .catch(() => false);
+}
+
+const LoginModal = () => {
+  const { state, dispatch } = React.useContext(UserContext)
+
+  const handleClose = () => dispatch({ type: "close-login" });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const credentials = {
+      username: data.get('username'),
+      password: data.get('password'),
+    };
+    loginService
+      .login(credentials)
+      .then(token => {
+          Cookies.set('access_token', token);
+        })
+      .catch(console.log);
+
+    const token = Cookies.get('access_token');
+
+    if (await authToken(token))
+    {
+      dispatch({type : 'set-user', payload : parseJwt(token)});
+    } else {
+      dispatch({type : 'logout'});
+    }
+    handleClose();
+  };
   return (
     <div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={openLogin}
+        
+        open={state.loginOpen}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -135,9 +164,9 @@ const LoginModal = ({openLogin, setOpenLogin}) => {
           timeout: 500,
         }}
       >
-        <Fade in={openLogin}>
+        <Fade in={state.loginOpen}>
           <Box sx={style}>
-            <SignIn handleClose={handleClose}></SignIn>
+            <SignIn handleSubmit={handleSubmit}></SignIn>
           </Box>
         </Fade>
       </Modal>

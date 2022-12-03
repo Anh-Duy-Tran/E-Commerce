@@ -4,6 +4,9 @@ import * as React from 'react';
 import ProductImgSlider from './ProductImgSlider';
 import ProductInfo from './ProductInfo';
 
+import productsController from '../controllers/products';
+import { UserContext } from '../context/User/UserProvider';
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -25,11 +28,20 @@ const SideContainer = styled.div`
   
 `
 
-const ShowProduct = ({product}) => {
-
+const ShowProduct = ({productId}) => {
+  const { state } = React.useContext(UserContext);
+  
+  if (Object.keys(state.products).length === 0) {
+    return null;
+  }
   const [ color, setColor ] = React.useState(product.color[0])
 
+  const product = productsController.findProduct(productId, state.products);
+
+  console.log(product);
   return (
+    Object.keys(state.products).length !== 0 
+    ?
     <Container>
       <ImgSlider>
         <ProductImgSlider slides={product.image[color]} height={"80vh"}></ProductImgSlider>
@@ -38,6 +50,7 @@ const ShowProduct = ({product}) => {
         <ProductInfo product={product} color={color} setColor={setColor}></ProductInfo>
       </SideContainer>
     </Container>
+    : null
   )
 }
 

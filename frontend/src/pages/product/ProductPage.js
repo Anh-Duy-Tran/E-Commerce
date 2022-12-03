@@ -5,8 +5,6 @@ import Navbar from "../../components/Navbar";
 import ShowProduct from "../../components/ShowProduct";
 import styled from 'styled-components';
 
-import productsController from '../../controllers/products'
-import UserContext from '../../context/UserContext';
 
 const Container = styled.div`
   display: grid;
@@ -14,16 +12,10 @@ const Container = styled.div`
 `
 
 const ProductsPage = () => {
-  const { products } = React.useContext(UserContext);
-  
-  const id = useParams().id;
-
-  const product = productsController.findProduct(id, products);
-
   return (
     <Container>
         <Navbar/>
-        <ShowProduct product={product}></ShowProduct>
+        <ShowProduct productId={useParams().id}></ShowProduct>
     </Container>
   )
 }

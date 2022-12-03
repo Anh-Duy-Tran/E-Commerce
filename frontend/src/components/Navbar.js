@@ -12,11 +12,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from '@mui/material/Drawer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Button from '@mui/material/Button';
-import Cookies from 'js-cookie';
 
 import cartController from '../controllers/cart';
 
-import UserContext from '../context/UserContext';
+import { UserContext } from '../context/User/UserProvider';
 
 const Container = styled.div`
   display: flex;
@@ -76,13 +75,9 @@ const Logo = styled.p`
 `
 
 const Navbar = () => {
-
-  const [ openLogin, setOpenLogin ] = React.useState(false);
-
-  const { user, category, menu, cart } = React.useContext(UserContext);
-  
-  const [menuOpen, toggleMenu] = menu;
-  const [cartOpen, toggleCart] = cart;
+  const { state, dispatch } = React.useContext(UserContext);
+  const toggleMenu = (event) => dispatch({type : 'toggle-menu', event : event});
+  const toggleCart = (event) => dispatch({type : 'toggle-cart', event : event});
 
   return (
     <Container>
@@ -94,10 +89,10 @@ const Navbar = () => {
             </IconButton>
             <Drawer
               anchor={'left'}
-              open={menuOpen}
+              open={state.menuOpen}
               onClose={toggleMenu}
             >
-              {<SideDrawer category={category} onClick={toggleMenu}></SideDrawer>}
+              <SideDrawer/>
             </Drawer>
           </React.Fragment>
         </Left>
@@ -107,12 +102,14 @@ const Navbar = () => {
         </Center>
 
         <Right>
+          
           {
-            user[0] === null
-            ? <Button sx={{}} onClick={() => setOpenLogin(true)}>Login</Button>
-            : <p>Hi, {user[0].username}!</p>
+            state.user === null || state.user === undefined
+            ? <Button sx={{}} onClick={() => dispatch({type : 'open-login'})}>Login</Button>
+            : <p>Hi, {state.user.username}!</p>
           }
-          <LoginModal openLogin={openLogin} setOpenLogin={setOpenLogin}></LoginModal>
+          <LoginModal/>
+
           <React.Fragment key='right'>
               <IconButton aria-label="Shopping cart" onClick={toggleCart} sx={{ zIndex: 10, color: 'black' }} > 
                 <Badge color="error" badgeContent={cartController.getCartCount()}>
@@ -121,7 +118,7 @@ const Navbar = () => {
               </IconButton>
               <Drawer
                 anchor={'right'}
-                open={cartOpen}
+                open={state.cartOpen}
                 onClose={toggleCart}
               >
                 <ShoppingCart/>

@@ -6,9 +6,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import Link from '@mui/material/Link';
 import { useContext } from 'react';
-import UserContext from '../context/UserContext';
 import { Typography } from '@mui/material';
 
+import { UserContext } from '../context/User/UserProvider';
 
 const ListHeader = styled.strong`
   font-size: 20px;
@@ -26,8 +26,7 @@ const linkStyle = {
   fontFamily: "Futura"
 }
 
-const ListFromJson = () => {
-  const { category } = useContext(UserContext);
+const ListFromJson = ({category}) => {
   const Section = ({sec}) => {
     return (
       <>
@@ -57,16 +56,16 @@ const ListFromJson = () => {
 }
 
 
-const SideDrawer = ({category, onClick}) => {
-
+const SideDrawer = () => {
+  const { state, dispatch } = useContext(UserContext);
   return (
     <Box
       sx={{ width: 350, paddingTop: '50px' }}
       role="presentation"
-      onClick={onClick}
-      onKeyDown={onClick}
+      onClick={() => dispatch({type : 'toggle-cart'})}
+      onKeyDown={() => dispatch({type : 'toggle-cart'})}
     >
-      <ListFromJson category={category}></ListFromJson>
+      <ListFromJson category={state.category}></ListFromJson>
     </Box>
   );
 }
