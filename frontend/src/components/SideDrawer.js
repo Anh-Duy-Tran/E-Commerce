@@ -23,7 +23,7 @@ const linkStyle = {
   paddingBottom: "10px",
   color: "black",
   fontSize : "16px",
-  fontFamily: "Futura"
+  fontFamily: "Futura",
 }
 
 const ListFromJson = ({category}) => {
@@ -62,8 +62,8 @@ const SideDrawer = () => {
     <Box
       sx={{ width: 350, paddingTop: '50px' }}
       role="presentation"
-      onClick={() => dispatch({type : 'toggle-cart'})}
-      onKeyDown={() => dispatch({type : 'toggle-cart'})}
+      onClick={ (event) => dispatch({type : 'toggle-menu', event : event}) }
+      onKeyDown={ (event) => dispatch({type : 'toggle-menu', event : event}) }
     >
       <ListFromJson category={state.category}></ListFromJson>
     </Box>

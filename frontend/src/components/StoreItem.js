@@ -40,11 +40,13 @@ const NameDiv = styled.div`
 const StoreItem = ({product, onClick}) => {
   return (
     <Card sx={CardStyle}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        image={product.idle}
-      />
+      <Link href={"/products/" + product._id}>
+        <CardMedia
+          component="img"
+          alt="green iguana"
+          image={product.idle}
+        />
+      </Link>
       <CardContent sx={{padding: '0px'}}>
         <NameDiv>
           <Link underline="hover" sx={linkStyle} href={"/products/" + product._id}>{product.name}</Link>

@@ -1,77 +1,19 @@
-import Cookies from 'js-cookie';
-
-import loginService from '../../services/login';
-
-const parseJwt = (token) => {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-
-  return JSON.parse(jsonPayload);
-}
-
-const authToken = (token) => {
-  if (token === undefined) {
-    return Promise.resolve(false);
-  }
-
-  return loginService
-    .authenticate(token)
-    .then(() => true)
-    .catch(() => false);
-}
- 
-
 export const reducer = (state, action) => {
   switch (action.type) {
     
+    case "update-count" : {
+      return {
+        ...state,
+        cartCount : action.payload
+      }
+    }
+
     case "set-user" : {
       return {
         ...state,
         user : action.payload
       }
     }
-
-    // case "verify-user": {
-    //   const token = Cookies.get('access_token');
-      
-    //   return authToken(token).then(
-    //     res => {
-    //       if(res) {
-    //         return {
-    //           ...state,
-    //           user : parseJwt(token)
-    //         }
-    //       } else {
-    //         return {
-    //           ...state,
-    //           user : null
-    //         }
-    //       };
-    //     })
-    // }
-    
-    // case "login": {
-    //   const data = new FormData(action.target);
-    //   const credentials = {
-    //     username: data.get('username'),
-    //     password: data.get('password'),
-    //   };
-    //   loginService
-    //     .login(credentials)
-    //     .then(token => {
-    //         Cookies.set('access_token', token);
-    //         return {
-    //           ...state,
-    //           loginOpen : false,
-    //           user : parseJwt(token)
-    //         };
-    //       })
-    //     .catch(console.log);
-    //   return {...state};
-    // }
 
     case "update-all" : {
       return {
@@ -172,6 +114,8 @@ export const initialState = {
   cartOpen : false,
   loginOpen: false,
   fetchStatus: undefined,
+
+  cartCount : undefined,
 
   products : {},
   category : {},

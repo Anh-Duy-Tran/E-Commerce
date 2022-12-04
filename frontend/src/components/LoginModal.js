@@ -21,6 +21,18 @@ import { UserContext } from '../context/User/UserProvider';
 
 const theme = createTheme();
 
+const LoginButtonStyle = {
+  color : "white",
+  fontFamily : "Futura",
+  backgroundColor : "black",
+  mt: 3, 
+  mb: 2,
+  "&:hover": {
+    backgroundColor : "black",
+    textDecoration: "underline #FFFFFF"
+  }
+}
+
 const SignIn = ({handleSubmit}) => {
   return (
     <ThemeProvider theme={theme}>
@@ -66,7 +78,7 @@ const SignIn = ({handleSubmit}) => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={LoginButtonStyle}
             >
               Sign In
             </Button>
@@ -150,6 +162,8 @@ const LoginModal = () => {
     }
     handleClose();
   };
+
+
   return (
     <div>
       <Modal
