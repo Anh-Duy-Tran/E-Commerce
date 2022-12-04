@@ -61,7 +61,7 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
       setSnackMessage("Please choose a size!")
       return;
     }
-    cart.addToCart(product._id, product.name, color, size, product.image[color][0]);
+    cart.addToCart(product._id, product.name, color, size, product.price, product.image[color][0]);
     dispatch({ type : "update-count", payload : state.cartCount + 1})
     setSnackMessage("Item added!")
   }

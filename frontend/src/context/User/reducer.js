@@ -8,6 +8,13 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "update-total-price" : {
+      return {
+        ...state,
+        totalPrice : Number((action.payload).toFixed(2))
+      }
+    }
+
     case "set-user" : {
       return {
         ...state,
@@ -116,6 +123,7 @@ export const initialState = {
   fetchStatus: undefined,
 
   cartCount : undefined,
+  totalPrice : undefined,
 
   products : {},
   category : {},
