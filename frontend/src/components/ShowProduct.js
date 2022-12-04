@@ -42,7 +42,6 @@ const ShowProduct = ({productId}) => {
         dispatch({ type : "fetch-success" });
         setColor(products.color[0].name);
         setProduct(products);
-        console.log(products);
       });
   }, [])
 

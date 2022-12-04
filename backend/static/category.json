@@ -25,7 +25,7 @@
       },
       {
         "tile" : "Shirt",
-        "path" : "/men/shirt"
+        "path" : "/men/"
       },
       {
         "tile" : "Trouser",
@@ -38,12 +38,12 @@
     "tile" : "Woman",
     "paths" : [
       {
-        "tile" : "Bags",
-        "path" : "/woman/bags"
+        "tile" : "View All",
+        "path" : "/woman"
       },
       {
-        "tile" : "Travel",
-        "path" : "/woman/travels"
+        "tile" : "Shirt",
+        "path" : "/woman/shirt"
       },
       {
         "tile" : "Accessories",

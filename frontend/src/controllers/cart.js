@@ -13,10 +13,25 @@ const getCartCount = () => {
   )
 }
 
-const addToCart = (productid, name, color, size, img) => {
+const getTotalCartPrice = () => {
+  return Object.keys(localStorage).reduce(
+    (a, productid) => {
+      const product = JSON.parse(localStorage.getItem(productid));
+      return a + Number(product["amount"]) * Number(product["price"]);
+    }, 0);
+}
+
+const addToCart = (productid, name, color, size, price, img) => {
   const key = `${productid}/${color}/${size}`;
   if (window.localStorage.getItem(key) === null) {
-    window.localStorage.setItem(key, JSON.stringify({amount: 1, name : name, color: color, size: size, img : img}));
+    window
+      .localStorage
+      .setItem(key, JSON.stringify({amount: 1, 
+                                    name : name, 
+                                    color: color, 
+                                    size: size, 
+                                    price : price, 
+                                    img : img}));
   } else {
     const data = JSON.parse(localStorage.getItem(key));
     data.amount = Number(data.amount) + 1;
@@ -36,4 +51,6 @@ const updateAmount = (productid, amount) => {
   localStorage.setItem(productid, JSON.stringify({...data, amount : amount}));
 }
 
-export default { getAllProductFromCart, addToCart, getCartCount, removeFromCart, updateAmount }
+
+const services = { getTotalCartPrice, getAllProductFromCart, addToCart, getCartCount, removeFromCart, updateAmount };
+export default services;

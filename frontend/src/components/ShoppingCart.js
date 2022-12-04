@@ -3,15 +3,22 @@ import styled from 'styled-components';
 import Box from '@mui/material/Box';
 
 import CartItem from './CartItem';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import cartController from '../controllers/cart';
 import productsController from '../controllers/products';
 
 
 import { UserContext } from '../context/User/UserProvider';
 
-const ListHeader = styled.strong`
+const ListHeader = styled.h1`
   font-size: 40px;
+  font-family: Futura;
+  padding-left: 35px;
+`
+
+const Total = styled.h2`
+  padding-top : 50px;
+  font-size: 30px;
   font-family: Futura;
   padding-left: 35px;
 `
@@ -21,8 +28,11 @@ const ListHeader = styled.strong`
 
 const ShoppingCart = () => {
   const { state, dispatch } = useContext(UserContext);
-
   const allProductFromCart = cartController.getAllProductFromCart();
+
+  useEffect(() => {
+    dispatch({ type : "update-total-price", payload : cartController.getTotalCartPrice()})
+  }, [state.cartCount])
   return (
     <Box
       sx={{ width: 650, paddingTop: '50px', paddingBottom: '150px' }}
@@ -33,16 +43,14 @@ const ShoppingCart = () => {
       <ListHeader>CART ({state.cartCount})</ListHeader>
       {
         allProductFromCart.map(
-          productInfo => {
-            return (
-              <CartItem key={productInfo.uniqueKey} 
-                        name={productInfo.name}
-                        orderId={productInfo.uniqueKey}
-                        init_amount={productInfo.amount}
-                        img={productInfo.img}
-              ></CartItem>)
-          }
+          productInfo => 
+              <CartItem productInfo={productInfo}/>
         )
+      }
+      {
+      state.cartCount !== 0
+      ? <Total>Total: {`${state.totalPrice} EURO`}</Total>
+      : null
       }
     </Box>
   );

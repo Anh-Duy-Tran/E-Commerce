@@ -49,17 +49,16 @@ const RemoveButton = styled.button`
   font-size: 18px;
   background-color: white;
   font-family: 'Futura';
-  margin-top: 100px;
+  margin-top: 30px;
 `
 
 
 
-const CartItem = ({name, orderId, img, init_amount}) => {
+const CartItem = ({productInfo}) => {
+  const orderId = productInfo.uniqueKey;
   const { state, dispatch } = useContext(UserContext);
-  const [amount, setAmount] = useState(init_amount);
-  const [id, color, size] = orderId.split('/');
-
-  console.log(state);
+  const [ amount, setAmount ] = useState(productInfo.amount);
+  const [ id, color, size ] = orderId.split('/');
 
   const onClickAddMinus = (e, id, setAmount, Add) => {
     e.stopPropagation();
@@ -80,20 +79,26 @@ const CartItem = ({name, orderId, img, init_amount}) => {
   const onClickRemove = (e, productid, setAmount) => {
     e.stopPropagation();
     cartController.removeFromCart(productid);
-    setAmount(0);
+    setAmount(val => {
+      dispatch({type : 'update-count', payload : state.cartCount - val })
+      return 0;
+    });
   }
+
+  const totalPrice = Number((Number(productInfo.price) * amount).toFixed(2))
 
   return (
     amount !== 0 
     ? 
     <Container>
-      <Name>{name}</Name>
+      <Name>{productInfo.name}</Name>
       <InfoWrapper>
-        <ProductImg src={img}/>
+        <ProductImg src={productInfo.img}/>
         <ProductInfo>
           <p>{color}</p>
           <p>Size : {size}</p>
           <p>Amount: {amount}</p>
+          <p>{`${totalPrice} EUR`}</p>
           <Stack direction="row" spacing={2}>
             <IconButton onClick={(e) => onClickAddMinus(e, orderId, setAmount, true)} variant="contained">
               <AddIcon></AddIcon>
