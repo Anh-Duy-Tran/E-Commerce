@@ -24,5 +24,11 @@ const fetchProductFromStore = async (store) => {
     .then(res => res.data);
 }
 
-const service = { fetchProducts, fetchCategory, fetchProductFromStore };
+const fetchProductsById = async (productid) => {
+  return axios
+    .get(`${URL}/${productid}`)
+    .then(res => res.data);
+}
+
+const service = { fetchProducts, fetchCategory, fetchProductFromStore, fetchProductsById };
 export default service;

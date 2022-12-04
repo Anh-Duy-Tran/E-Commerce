@@ -6,6 +6,8 @@ import SizeSelector from './SizeSelector';
 import Snackbar from '@mui/material/Snackbar';
 
 import cart from '../controllers/cart';
+import { Button } from '@mui/material';
+import { UserContext } from '../context/User/UserProvider';
 
 const Container = styled.div`
   margin-bottom: auto;
@@ -29,8 +31,24 @@ const Price = styled.p`
   font-family: Futura
 `
 
+const buttonStyle = {
+  marginTop : "50px",
+  color : "white",
+  fontFamily : "Futura",
+  fontSize : "20px",
+  width : "75%",
+  marginLeft : "12px",
+  marginRight : "50px",
+  backgroundColor : "black",
+  "&:hover": {
+    backgroundColor : "black",
+    textDecoration: "underline #FFFFFF"
+  }
+}
+
 
 const ProductInfo = ({product, color, setColor, noDescription}) => {
+  const { state, dispatch } = React.useContext(UserContext)
   const [ size, setSize ] = React.useState(null);
   const [ snackMessage, setSnackMessage] = React.useState(null);
 
@@ -43,7 +61,8 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
       setSnackMessage("Please choose a size!")
       return;
     }
-    cart.addToCart(product._id, color, size);
+    cart.addToCart(product._id, product.name, color, size, product.image[color][0]);
+    dispatch({ type : "update-count", payload : state.cartCount + 1})
     setSnackMessage("Item added!")
   }
 
@@ -62,18 +81,25 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
       }
 
       <Price>
-        {product.price + " EUR"}
+        {`${product.price} EUR`}
       </Price>
 
-      <ColorSelector colors={product.color} color={color} onChangeColor={setColor}></ColorSelector>
-      <SizeSelector size={product.size} selected={size} selector={onChangeSizeClick} ></SizeSelector>
-      <button onClick={() => addToCart(product)}>Add to cart</button>
+      <ColorSelector colors={product.color} 
+                     color={color} 
+                     onChangeColor={setColor}/>
+      <SizeSelector size={product.size} 
+                    selected={size} 
+                    selector={onChangeSizeClick}/>
+
+      <Button sx={buttonStyle} 
+              onClick={() => addToCart(product)}> 
+        Add to cart 
+      </Button>
       <Snackbar
         open={snackMessage !== null}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={ () => setSnackMessage(null) }
         message={snackMessage}
-        // action={action}
       />
     </Container>
   )

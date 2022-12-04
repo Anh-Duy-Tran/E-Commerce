@@ -4,9 +4,8 @@ import * as React from 'react';
 import ProductImgSlider from './ProductImgSlider';
 import ProductInfo from './ProductInfo';
 
-import productsController from '../controllers/products';
+import productService from '../services/products';
 import { UserContext } from '../context/User/UserProvider';
-import Loading from './Loading';
 
 const Container = styled.div`
   display: flex;
@@ -30,22 +29,25 @@ const SideContainer = styled.div`
 `
 
 const ShowProduct = ({productId}) => {
-  const { state } = React.useContext(UserContext);
-  const [ color, setColor ] = React.useState(null)
+  const { state, dispatch } = React.useContext(UserContext);
+  const [ color, setColor ] = React.useState(null);
+  const [ product, setProduct ] = React.useState(null);
 
-  if (state.fetchStatus !== 'success')
-  {
-    return (
-      <Loading></Loading>
-    )
-  }
-
-  const product = productsController.findProduct(productId, state.products);
-  if (color === null) setColor(product.color[0])
-  console.log(product.image[color]);
+  React.useEffect(() => {
+    dispatch({ type : "fetching" });
+    productService
+      .fetchProductsById(productId)
+      .then(products => {
+        dispatch({ type : "update-products", payload : products });
+        dispatch({ type : "fetch-success" });
+        setColor(products.color[0].name);
+        setProduct(products);
+        console.log(products);
+      });
+  }, [])
 
   return (
-    state.fetchStatus === 'success'
+    product !== null
     ?
     <Container>
       <ImgSlider>
@@ -55,7 +57,7 @@ const ShowProduct = ({productId}) => {
         <ProductInfo product={product} color={color} setColor={setColor}></ProductInfo>
       </SideContainer>
     </Container>
-    : <Loading></Loading>
+    : null
   )
 }
 

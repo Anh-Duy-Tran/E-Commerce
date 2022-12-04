@@ -25,17 +25,22 @@ const ShoppingCart = () => {
   const allProductFromCart = cartController.getAllProductFromCart();
   return (
     <Box
-      sx={{ width: 650, paddingTop: '50px' }}
+      sx={{ width: 650, paddingTop: '50px', paddingBottom: '150px' }}
       role="presentation"
-      onClick={() => dispatch({ type : "toggle-cart"})}
-      onKeyDown={() => dispatch({ type : "toggle-cart"})}
+      onClick={(event) => dispatch({type : 'toggle-cart', event : event})}
+      onKeyDown={(event) => dispatch({type : 'toggle-cart', event : event})}
     >
-      <ListHeader>CART ({cartController.getCartCount()})</ListHeader>
+      <ListHeader>CART ({state.cartCount})</ListHeader>
       {
         allProductFromCart.map(
           productInfo => {
-            const product = productsController.findProduct(productInfo._id, state.products);
-            return (<CartItem key={productInfo.uniqueKey} orderId={productInfo.uniqueKey} product={product}></CartItem>)
+            return (
+              <CartItem key={productInfo.uniqueKey} 
+                        name={productInfo.name}
+                        orderId={productInfo.uniqueKey}
+                        init_amount={productInfo.amount}
+                        img={productInfo.img}
+              ></CartItem>)
           }
         )
       }

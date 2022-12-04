@@ -8,6 +8,7 @@ import LoginModal from './LoginModal';
 
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
+import Link from '@mui/material/Link';
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from '@mui/material/Drawer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -63,16 +64,30 @@ const Center = styled.div`
   z-index: 10;
 `
 
-const Logo = styled.p`
-  margin: 0px;
-  height: 100%;
-  font-size: 60px;
-  letter-spacing: 13px;
-  font-family: Futura;
-  user-select: none;
-  z-index: 10;
-  color: 'black';
-`
+const LogoStye = {
+  margin: '0px',
+  height: '100%',
+  fontSize: '60px',
+  letterSpacing: '13px',
+  fontFamily: 'Futura',
+  userSelect: 'none',
+  zIndex: '10',
+  color: 'black',
+  textDecoration: 'none',
+}
+
+const LoginButtonStyle = {
+  color : "white",
+  fontFamily : "Futura",
+  marginLeft : "12px",
+  marginRight : "50px",
+  backgroundColor : "black",
+  "&:hover": {
+    backgroundColor : "black",
+    textDecoration: "underline #FFFFFF"
+  }
+}
+
 
 const Navbar = () => {
   const { state, dispatch } = React.useContext(UserContext);
@@ -98,21 +113,25 @@ const Navbar = () => {
         </Left>
 
         <Center>
-          <Logo> LAVISH</Logo>
+          <Link sx={LogoStye} href='/'> LAVISH</Link>
         </Center>
 
         <Right>
           
           {
             state.user === null || state.user === undefined
-            ? <Button sx={{}} onClick={() => dispatch({type : 'open-login'})}>Login</Button>
-            : <p>Hi, {state.user.username}!</p>
+            ? <Button sx={LoginButtonStyle} onClick={() => dispatch({type : 'open-login'})}>Login</Button>
+            
+            : <>
+                <Button sx={LoginButtonStyle} onClick={() => dispatch({type : 'logout'})}>Logout</Button>
+                <p>Hi, {state.user.username}!</p>
+              </>
           }
           <LoginModal/>
 
           <React.Fragment key='right'>
               <IconButton aria-label="Shopping cart" onClick={toggleCart} sx={{ zIndex: 10, color: 'black' }} > 
-                <Badge color="error" badgeContent={cartController.getCartCount()}>
+                <Badge color="error" badgeContent={state.cartCount}>
                   <ShoppingCartOutlinedIcon sx={{ fontSize: 40 }}></ShoppingCartOutlinedIcon>
                 </Badge>
               </IconButton>
