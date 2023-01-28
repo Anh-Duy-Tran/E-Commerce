@@ -5,8 +5,6 @@ import Box from '@mui/material/Box';
 import CartItem from './CartItem';
 import { useContext, useEffect } from 'react';
 import cartController from '../controllers/cart';
-import productsController from '../controllers/products';
-
 
 import { UserContext } from '../context/User/UserProvider';
 
@@ -32,7 +30,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     dispatch({ type : "update-total-price", payload : cartController.getTotalCartPrice()})
-  }, [state.cartCount])
+  }, [state.cartCount, dispatch])
   return (
     <Box
       sx={{ width: 650, paddingTop: '50px', paddingBottom: '150px' }}
@@ -44,7 +42,7 @@ const ShoppingCart = () => {
       {
         allProductFromCart.map(
           productInfo => 
-              <CartItem productInfo={productInfo}/>
+              <CartItem key={productInfo.uniqueKey} productInfo={productInfo}/>
         )
       }
       {

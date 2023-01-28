@@ -1,3 +1,6 @@
+import Cookies from 'js-cookie'
+import userService from '../services/user'
+
 const getAllProductFromCart = () => {
   return Object.keys(localStorage).map( key => ({
       _id: key.split('/')[0],
@@ -51,6 +54,28 @@ const updateAmount = (productid, amount) => {
   localStorage.setItem(productid, JSON.stringify({...data, amount : amount}));
 }
 
+const mergeFetchedCart = (fetchedCart) => {
+  Object.keys(fetchedCart).forEach(id => {
+    const value = fetchedCart[id];
+    if (localStorage.getItem(id) === null) {
+      localStorage.setItem(id, value);
+    } else {
+      const localCartItem = localStorage.getItem(id);
+      localStorage.setItem(id, {...localCartItem, amount : localCartItem.amount + value.amount});
+    }
+  })
 
-const services = { getTotalCartPrice, getAllProductFromCart, addToCart, getCartCount, removeFromCart, updateAmount };
+  for (const [key, value] of Object.entries(localStorage)) {
+    console.log(key, value);
+    userService.addToCart({key, value : JSON.stringify(value)}, Cookies.get('access_token'));
+  }
+}
+
+const clearLocalCart = () => {
+  localStorage.clear();
+  updateAmount();
+}
+
+
+const services = { clearLocalCart, mergeFetchedCart, getTotalCartPrice, getAllProductFromCart, addToCart, getCartCount, removeFromCart, updateAmount };
 export default services;

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:3001/api/products';
-const CATEGORY_URL = 'http://localhost:3001/api/category';
-const STORE_URL = 'http://localhost:3001/api/store/';
+const URL = 'https://nameless-shadow-4551.fly.dev/api/products';
+const CATEGORY_URL = 'https://nameless-shadow-4551.fly.dev/api/category';
+const STORE_URL = 'https://nameless-shadow-4551.fly.dev/api/store/';
 
 const fetchProducts = async () => {
   return axios

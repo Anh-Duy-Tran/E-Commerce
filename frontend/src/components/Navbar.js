@@ -13,8 +13,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from '@mui/material/Drawer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Button from '@mui/material/Button';
-
-import cartController from '../controllers/cart';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import { UserContext } from '../context/User/UserProvider';
 
@@ -93,6 +93,21 @@ const Navbar = () => {
   const { state, dispatch } = React.useContext(UserContext);
   const toggleMenu = (event) => dispatch({type : 'toggle-menu', event : event});
   const toggleCart = (event) => dispatch({type : 'toggle-cart', event : event});
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    handleClose();
+    dispatch({type : 'logout'});
+  }
+
 
   return (
     <Container>
@@ -118,16 +133,35 @@ const Navbar = () => {
 
         <Right>
           
+          <LoginModal/>
           {
             state.user === null || state.user === undefined
             ? <Button sx={LoginButtonStyle} onClick={() => dispatch({type : 'open-login'})}>Login</Button>
             
             : <>
-                <Button sx={LoginButtonStyle} onClick={() => dispatch({type : 'logout'})}>Logout</Button>
-                <p>Hi, {state.user.username}!</p>
+                <Button
+                  id="basic-button"
+                  onClick={handleClick}
+                  sx={LoginButtonStyle}
+                >
+                  {`Hi, ${state.user.username}`}
+                </Button>
+
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
               </>
           }
-          <LoginModal/>
 
           <React.Fragment key='right'>
               <IconButton aria-label="Shopping cart" onClick={toggleCart} sx={{ zIndex: 10, color: 'black' }} > 

@@ -1,3 +1,6 @@
+import Cookies from "js-cookie"
+import cartController from "../../controllers/cart"
+
 export const reducer = (state, action) => {
   switch (action.type) {
     
@@ -32,6 +35,8 @@ export const reducer = (state, action) => {
     }
 
     case "logout" : {
+      Cookies.remove('access_token');
+      cartController.clearLocalCart();
       return {
         ...state,
         user : null
@@ -109,6 +114,13 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "set-login-message" : {
+      return {
+        ...state,
+        loginMessage : action.payload
+      }
+    }
+
     default:
       return state
   }
@@ -124,6 +136,8 @@ export const initialState = {
 
   cartCount : undefined,
   totalPrice : undefined,
+
+  loginMessage : "",
 
   products : {},
   category : {},

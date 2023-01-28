@@ -249,5 +249,27 @@
     },
 
     "description": "Short satin dress with a surplice neckline and long cuffed sleeves. Gathered detail. Asymmetric hem. Invisible side zip fastening."
+  },
+  {
+    "name": "BROWN FLANNEL",
+    "type" : ["all", "men", "shirt"],
+    "price": 59.99,
+    "color" : [
+      {
+        "name" : "Brown",
+        "code" : "#293734"
+      }
+    ],
+    "size" : ["XS", "S", "M", "L", "XL", "XXL"],
+    "idle" : "https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/318995201_541308087891580_7941299836139638691_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ae9488&_nc_ohc=XTaYG6fY-ZEAX88_C8x&_nc_ht=scontent-arn2-1.xx&oh=03_AdTEmwMTxaW5ih600ZaA-eDBP6Cmy4yDiijHw644c3ubTw&oe=63CCF598",
+    "active" : "https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/319092548_506950074834761_2295871795710218130_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=T9tupUdHJcgAX-uOWJW&_nc_ht=scontent-arn2-1.xx&oh=03_AdQzGKQHH4f-9Y-0uCxigE37tGdmY-FoTz8IF_GyeBwHYw&oe=63CCEE4D",
+    "image": {
+       "Brown" : ["https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/318995201_541308087891580_7941299836139638691_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ae9488&_nc_ohc=XTaYG6fY-ZEAX88_C8x&_nc_ht=scontent-arn2-1.xx&oh=03_AdTEmwMTxaW5ih600ZaA-eDBP6Cmy4yDiijHw644c3ubTw&oe=63CCF598",
+                      "https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/319092548_506950074834761_2295871795710218130_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=T9tupUdHJcgAX-uOWJW&_nc_ht=scontent-arn2-1.xx&oh=03_AdQzGKQHH4f-9Y-0uCxigE37tGdmY-FoTz8IF_GyeBwHYw&oe=63CCEE4D",
+                      "https://scontent-arn2-2.xx.fbcdn.net/v/t1.15752-9/319612681_1535574446907189_7884256951895278101_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ae9488&_nc_ohc=zbyVvpEmGWQAX9SMlJh&_nc_ht=scontent-arn2-2.xx&oh=03_AdT7poGcZX5QGMIvfFqSViDnj21J4nWG_GIbmBkEN7STCQ&oe=63CD0980"
+                    ]
+    },
+
+    "description": "Oversized, straight-cut shacket in sturdy cotton flannel with a collar, press-studs down the front and a yoke at the back. Chest pockets, long sleeves with a sleeve placket and a press-stud at the cuffs, and a straight-cut hem."
   }
 ]

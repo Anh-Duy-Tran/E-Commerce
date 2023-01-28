@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:3001/api/login'
-const AUTH_URL = 'http://localhost:3001/api/auth'
+const baseURL = "https://nameless-shadow-4551.fly.dev"
+const URL = `${baseURL}/api/login`;
+const AUTH_URL = `${baseURL}/api/auth`;
 
 const login = async (payload) => {
   return axios
     .post(URL, payload)
-    .then(res => res.data);
+    .then(res => res.data)
+    .catch(() => {});
 }
 
 const authenticate = async (token) => {
@@ -16,7 +18,6 @@ const authenticate = async (token) => {
   return axios
     .get(AUTH_URL, config)
     .then(res => res.data)
-    .catch((err) => console.log(err));
 }
 
 const service = { login, authenticate };

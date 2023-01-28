@@ -58,7 +58,7 @@ const CartItem = ({productInfo}) => {
   const orderId = productInfo.uniqueKey;
   const { state, dispatch } = useContext(UserContext);
   const [ amount, setAmount ] = useState(productInfo.amount);
-  const [ id, color, size ] = orderId.split('/');
+  const [ , color, size ] = orderId.split('/');
 
   const onClickAddMinus = (e, id, setAmount, Add) => {
     e.stopPropagation();
@@ -101,10 +101,10 @@ const CartItem = ({productInfo}) => {
           <p>{`${totalPrice} EUR`}</p>
           <Stack direction="row" spacing={2}>
             <IconButton onClick={(e) => onClickAddMinus(e, orderId, setAmount, true)} variant="contained">
-              <AddIcon></AddIcon>
+              <AddIcon/>
             </IconButton>
             <IconButton onClick={(e) => onClickAddMinus(e, orderId, setAmount, false)} variant="contained">
-              <RemoveIcon></RemoveIcon>
+              <RemoveIcon/>
             </IconButton>
           </Stack>
           <RemoveButton onClick={(e) => onClickRemove(e, orderId, setAmount)}>Remove</RemoveButton>

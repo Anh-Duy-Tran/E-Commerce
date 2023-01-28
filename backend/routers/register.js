@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const User = require('../models/user');
 
 const registerRouter = require('express').Router()
@@ -20,7 +18,7 @@ registerRouter.post('/', async (req, res) => {
   }
   
   try {
-    const newUser = new User({ username : username, password : password, email : email });
+    const newUser = new User({ username : username, password : password, email : email, cart : {} });
     await newUser.save();
     return res.status(201).json({ message : "New user created" });
   } catch (error) {

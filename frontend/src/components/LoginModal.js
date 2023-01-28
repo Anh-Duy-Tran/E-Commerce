@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
@@ -17,6 +16,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 
 import loginService from '../services/login';
+import userService from '../services/user';
+import cartController from '../controllers/cart';
 import { UserContext } from '../context/User/UserProvider';
 
 const theme = createTheme();
@@ -34,6 +35,8 @@ const LoginButtonStyle = {
 }
 
 const SignIn = ({handleSubmit}) => {
+  const { state, } = React.useContext(UserContext);
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -74,6 +77,9 @@ const SignIn = ({handleSubmit}) => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            <Typography>
+              {state.loginMessage}
+            </Typography>
             <Button
               type="submit"
               fullWidth
@@ -84,12 +90,12 @@ const SignIn = ({handleSubmit}) => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -122,17 +128,6 @@ const parseJwt = (token) => {
   return JSON.parse(jsonPayload);
 }
 
-const authToken = (token) => {
-  if (token === undefined) {
-    return Promise.resolve(false);
-  }
-
-  return loginService
-    .authenticate(token)
-    .then(() => true)
-    .catch(() => false);
-}
-
 const LoginModal = () => {
   const { state, dispatch } = React.useContext(UserContext)
 
@@ -145,38 +140,25 @@ const LoginModal = () => {
       username: data.get('username'),
       password: data.get('password'),
     };
-    loginService
-      .login(credentials)
-      .then(token => {
-          Cookies.set('access_token', token);
-        })
-      .catch(console.log);
 
-    const token = Cookies.get('access_token');
-
-    if (await authToken(token))
-    {
+    try {
+      const token = await loginService.login(credentials);
+      Cookies.set('access_token', token);
+  
       dispatch({type : 'set-user', payload : parseJwt(token)});
-    } else {
-      dispatch({type : 'logout'});
+      dispatch({ type : "set-login-message", payload : ""})
+      handleClose();
+    } catch (error) {
+      dispatch({ type : "set-login-message", payload : "username or password is incorrect"})
     }
-    handleClose();
   };
 
 
   return (
     <div>
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        
         open={state.loginOpen}
         onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
       >
         <Fade in={state.loginOpen}>
           <Box sx={style}>
