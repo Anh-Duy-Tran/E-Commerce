@@ -16,10 +16,10 @@ productsRouter.get('/:id', async (req, res) => {
   
   const product = await Products.findOne({ _id : req.params.id}).exec();
   
-  if (product === null) {
-    return res.status(400).json({ error : "Product not found."})
-  }
-  return res.status(200).json(product);
+
+  return product === null 
+    ? res.status(400).json({ error : "Product not found."})
+    : res.status(200).json(product);
 })
 
 productsRouter.post('/', authenticate, async (req, res) => {

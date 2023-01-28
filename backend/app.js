@@ -4,13 +4,15 @@ const { connectDB, disconnectDB } = require('./models/db');
 const express = require('express');
 const cors = require('cors');
 
-const loginRouter = require('./controllers/login');
-const landingRouter = require('./controllers/landing');
-const registerRouter = require('./controllers/register');
-const productsRouter = require('./controllers/products');
-const authRouter = require('./controllers/auth');
-const storeRouter = require('./controllers/store');
-const categoryRouter = require('./controllers/category');
+const loginRouter = require('./routers/login');
+const landingRouter = require('./routers/landing');
+const registerRouter = require('./routers/register');
+const productsRouter = require('./routers/products');
+const authRouter = require('./routers/auth');
+const storeRouter = require('./routers/store');
+const categoryRouter = require('./routers/category');
+const cartRouter = require('./routers/cart');
+const authenticateToken = require('./auth/auth');
 
 const app = express();
 
@@ -26,5 +28,6 @@ app.use('/api/products', productsRouter);
 app.use('/api/store', storeRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/cart', cartRouter);
 
 module.exports = app;

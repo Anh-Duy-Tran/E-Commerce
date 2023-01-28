@@ -26,7 +26,7 @@ const SCHEMA_DEFAULTS = {
   }
 };
 
-// Done: 9.5 Implement the userSchema
+
 const userSchema = new Schema({
   // for 'name' 
   // set type
@@ -43,10 +43,6 @@ const userSchema = new Schema({
   // set type
   // and the following validators:
   // required, unique, trim, match
-  // NOTE: unique is not a validator (see mongoose documentation)
-  // TIP: with match validator default value for email can be used and
-  // for checking the email you can use the match() from SCHEMA_DEFAULTS
-
   //       
   email: {
     type: String,
@@ -60,10 +56,6 @@ const userSchema = new Schema({
   // set type
   // and the following validators:
   // required, minlength
-  // for inspiration for the setter function, see the following comment lines
-  // set: password => {
-  //   if (ENTER CONDITIONS WHERE THE PASSWORD IS NOT VALID) return password;
-  //   return bcrypt.hashSync(ENTER PARAMETERS);
   // }
   // 
   password: {
@@ -80,7 +72,7 @@ const userSchema = new Schema({
   // for 'role'
   // set type
   // and the following validators:
-  //  required, trim, lowercase, enum,    default
+  //  required, trim, lowercase, enum, default
   role: {
     type: String,
     required: true,
@@ -88,6 +80,11 @@ const userSchema = new Schema({
     lowercase: true,
     enum: SCHEMA_DEFAULTS.role.values,
     default: SCHEMA_DEFAULTS.role.defaultValue,
+  },
+  
+  cart: {
+    type: Schema.Types.Mixed, // allow the cart to store multiple keys and values
+    required: true
   }
 });
 
