@@ -1,7 +1,14 @@
 import * as React from 'react';
 
+import productsController from '../controllers/products';
+import productService from '../services/products'
+import { useParams } from 'react-router-dom'
+import StoreItem from './StoreItem';
+import AddToCart from './AddToCart';
 
-import { UserContext } from '../../context/User/UserProvider';
+import styled from 'styled-components';
+import Drawer from '@mui/material/Drawer';
+import { UserContext } from '../context/User/UserProvider';
 
 const StoreContainer = styled.div`
   display: grid;
@@ -27,6 +34,10 @@ const StoreContainer = styled.div`
 
 const StoreContent = () => {
   const { state, dispatch } = React.useContext(UserContext);
+  const store = useParams();
+  const [ addToCartOpen, setAddToCart ] = React.useState(false);
+  const [ product, setProduct ] = React.useState(null);
+
   React.useEffect(() => {
     dispatch({ type : "fetching" });
     productService
@@ -36,6 +47,20 @@ const StoreContent = () => {
         dispatch({ type : "fetch-success" });
       });
   }, [store])
+
+
+  const toggleAddToCart = (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setAddToCart((prvValue) => !prvValue);
+  }
+
+  const onAddToCartClick = (id) => {
+    const product = productsController.findProduct(id, state.products);
+    setProduct(product);
+    setAddToCart(true);
+  }
 
   return (
     <>
@@ -64,3 +89,5 @@ const StoreContent = () => {
     </>
   )
 }
+
+export default StoreContent;

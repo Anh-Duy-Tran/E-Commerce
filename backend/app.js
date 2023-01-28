@@ -17,6 +17,7 @@ const authenticateToken = require('./auth/auth');
 const app = express();
 
 connectDB();
+
 app.use(cors());
 app.use(express.json());
 
