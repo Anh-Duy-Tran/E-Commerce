@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 import CircleIcon from '@mui/icons-material/Circle';
 
-import colorPalette from '../static/colorPalette.json'
-
 const Container = styled.div`
 
 `

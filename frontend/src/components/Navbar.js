@@ -17,6 +17,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import { UserContext } from '../context/User/UserProvider';
+import RegisterModal from './RegisterModal';
 
 const Container = styled.div`
   display: flex;
@@ -134,6 +135,7 @@ const Navbar = () => {
         <Right>
           
           <LoginModal/>
+          <RegisterModal/>
           {
             state.user === null || state.user === undefined
             ? <Button sx={LoginButtonStyle} onClick={() => dispatch({type : 'open-login'})}>Login</Button>

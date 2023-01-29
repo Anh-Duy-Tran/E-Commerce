@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { reducer, initialState } from "./reducer";
 
 import cartController from "../../controllers/cart";
-import userService from "../../services/user"
 
 import productService from '../../services/products';
-import loginService from '../../services/login';
 import Cookies from "js-cookie";
 
 export const UserContext = React.createContext(initialState);
@@ -25,11 +23,6 @@ export const UserProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   useEffect(() => {
-    const fetchCart = async (token) => {
-      cartController
-        .mergeFetchedCart(await userService.fetchCart(token))
-    }
-
     const token = Cookies.get('access_token');
     if (token) {
       try {

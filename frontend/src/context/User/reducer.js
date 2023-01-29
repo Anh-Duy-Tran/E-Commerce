@@ -56,6 +56,20 @@ export const reducer = (state, action) => {
         loginOpen : true
       }
     }
+
+    case "open-register" : {
+      return {
+        ...state,
+        registerOpen : true
+      }
+    }
+
+    case "close-register" : {
+      return {
+        ...state,
+        registerOpen : false
+      }
+    }
     
     case "toggle-cart": {
       const event = action.event;
@@ -121,6 +135,13 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "set-signup-message" : {
+      return {
+        ...state,
+        signupMessage : action.payload
+      }
+    }
+
     default:
       return state
   }
@@ -132,12 +153,14 @@ export const initialState = {
   menuOpen : false,
   cartOpen : false,
   loginOpen: false,
+  registerOpen: false,
   fetchStatus: undefined,
 
   cartCount : undefined,
   totalPrice : undefined,
 
   loginMessage : "",
+  signupMessage : "",
 
   products : {},
   category : {},

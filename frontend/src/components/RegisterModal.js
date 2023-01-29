@@ -7,8 +7,6 @@ import Typography from '@mui/material/Typography';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -32,7 +30,7 @@ const LoginButtonStyle = {
   }
 }
 
-const SignIn = ({handleSubmit, handleSignup}) => {
+const Signup = ({handleSubmit}) => {
   const { state, } = React.useContext(UserContext);
 
   return (
@@ -48,7 +46,7 @@ const SignIn = ({handleSubmit, handleSignup}) => {
           }}
         >
           <Typography sx={{fontFamily: 'Futura', }} component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -65,18 +63,40 @@ const SignIn = ({handleSubmit, handleSignup}) => {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <Grid container>
+              <Grid item xs>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password-repeat"
+                  label="Repeat password"
+                  type="password"
+                  id="password-repeat"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            </Grid>
             <Typography>
-              {state.loginMessage}
+              {state.signupMessage}
             </Typography>
             <Button
               type="submit"
@@ -84,20 +104,8 @@ const SignIn = ({handleSubmit, handleSignup}) => {
               variant="contained"
               sx={LoginButtonStyle}
             >
-              Sign In
+              Sign Up
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link sx={{ cursor: "pointer" }} variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link sx={{ cursor: "pointer" }} onClick={handleSignup} variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
@@ -116,60 +124,46 @@ const style = {
   p: 4,
 };
 
-const parseJwt = (token) => {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-
-  return JSON.parse(jsonPayload);
-}
-
-const LoginModal = () => {
+const RegisterModal = () => {
   const { state, dispatch } = React.useContext(UserContext)
 
-  const handleClose = () => dispatch({ type: "close-login" });
-  const handleOpenRegister = () => dispatch({ type: "open-register" })
+  const handleClose = () => dispatch({ type: "close-register" });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const credentials = {
+
+    const information = {
       username: data.get('username'),
+      email: data.get('email'),
       password: data.get('password'),
+      repeat_password: data.get('password-repeat')
     };
 
+    if (information.password !== information.repeat_password) {
+      dispatch({ type : "set-signup-message", payload : "The repeat password does not match the original password. Please re-enter your password."});
+      return;
+    }
+    
     try {
-      const token = await loginService.login(credentials);
-      Cookies.set('access_token', token);
-  
-      dispatch({type : 'set-user', payload : parseJwt(token)});
-      dispatch({ type : "set-login-message", payload : ""})
-      handleClose();
+      await loginService.register(information);
+      dispatch({ type : "set-signup-message", payload : "Sign up new account success."});
+      setTimeout(handleClose, 1000);
     } catch (error) {
-      dispatch({ type : "set-login-message", payload : "username or password is incorrect"})
+      console.log(error.response.data.error.message);
     }
   };
-
-  const handleSignup = () => {
-    handleClose();
-    handleOpenRegister();
-  }
 
 
   return (
     <div>
       <Modal
-        open={state.loginOpen}
+        open={state.registerOpen}
         onClose={handleClose}
       >
-        <Fade in={state.loginOpen}>
+        <Fade in={state.registerOpen}>
           <Box sx={style}>
-            <SignIn 
-              handleSubmit={handleSubmit}
-              handleSignup={handleSignup}
-            ></SignIn>
+            <Signup handleSubmit={handleSubmit}></Signup>
           </Box>
         </Fade>
       </Modal>
@@ -179,4 +173,4 @@ const LoginModal = () => {
 
 
 
-export default LoginModal;
+export default RegisterModal;
