@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import Navbar from "../../components/Navbar";
 
 import StoreContent from '../../components/StoreContent';
+import AddProductForm from '../../components/AddProductForm';
 
 
 const Container = styled.div`
@@ -31,7 +32,7 @@ function HideOnScroll(props) {
   );
 }
 
-const StorePage = () => {
+const AdminStore = () => {
   return (
     <Container>
         <HideOnScroll sx={{padding : '0px !important'}}>
@@ -42,9 +43,10 @@ const StorePage = () => {
           </AppBar>
         </HideOnScroll>
         
-        <StoreContent fetchAll={false}/>
+        <AddProductForm/>
+        <StoreContent fetchAll={true}/>
     </Container>
   )
 }
 
-export default StorePage
+export default AdminStore

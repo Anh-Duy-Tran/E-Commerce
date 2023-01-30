@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import Link from '@mui/material/Link';
 import { useContext } from 'react';
 import { Typography } from '@mui/material';
 
@@ -26,7 +25,21 @@ const linkStyle = {
   fontFamily: "Futura",
 }
 
-const ListFromJson = ({category}) => {
+const ListFromJson = ({category, isAdmin}) => {
+  const adminPaths = [{
+    "tile" : "Administration",
+    "paths" : [
+      {
+        "tile" : "Edit products",
+        "path" : "/admin/store"
+      },
+      {
+        "tile" : "View all user",
+        "path" : "/admin/user"
+      }
+    ]
+  }];
+
   const Section = ({sec}) => {
     return (
       <>
@@ -34,7 +47,7 @@ const ListFromJson = ({category}) => {
         <List>
           {Array.from(sec.paths).map(({tile, path}) => (
             <ListItem key={tile} disablePadding>
-              <ListItemButton href={"/store" + path}>
+              <ListItemButton href={path}>
                 <Typography sx={linkStyle} underline="hover">
                   {tile}
                 </Typography>
@@ -49,7 +62,12 @@ const ListFromJson = ({category}) => {
   return (
     <>
       {
-        Array.from(category).map(sec => (<Section key={sec.tile} sec={sec}></Section>))
+        isAdmin 
+          ? adminPaths.map(sec => (<Section key={sec.tile} sec={sec}/>))
+          : null
+      }
+      {
+        Array.from(category).map(sec => (<Section key={sec.tile} sec={sec}/>))
       }
     </>
   )
@@ -65,7 +83,7 @@ const SideDrawer = () => {
       onClick={ (event) => dispatch({type : 'toggle-menu', event : event}) }
       onKeyDown={ (event) => dispatch({type : 'toggle-menu', event : event}) }
     >
-      <ListFromJson category={state.category}></ListFromJson>
+      <ListFromJson category={state.category} isAdmin={state.user ? state.user.role === 'admin' : false}></ListFromJson>
     </Box>
   );
 }

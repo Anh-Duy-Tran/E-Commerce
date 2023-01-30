@@ -7,11 +7,9 @@ import Typography from '@mui/material/Typography';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Cookies from 'js-cookie';
 
 import loginService from '../services/login';
 import { UserContext } from '../context/User/UserProvider';
@@ -36,7 +34,6 @@ const Signup = ({handleSubmit}) => {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,

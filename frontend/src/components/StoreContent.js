@@ -9,6 +9,7 @@ import AddToCart from './AddToCart';
 import styled from 'styled-components';
 import Drawer from '@mui/material/Drawer';
 import { UserContext } from '../context/User/UserProvider';
+import Loading from './Loading';
 
 const StoreContainer = styled.div`
   display: grid;
@@ -32,16 +33,16 @@ const StoreContainer = styled.div`
   grid-gap: var(--grid-layout-gap);
 `
 
-const StoreContent = () => {
+const StoreContent = ({fetchAll}) => {
   const { state, dispatch } = React.useContext(UserContext);
-  const store = useParams();
+  let store = useParams();
   const [ addToCartOpen, setAddToCart ] = React.useState(false);
   const [ product, setProduct ] = React.useState(null);
 
   React.useEffect(() => {
     dispatch({ type : "fetching" });
     productService
-      .fetchProductFromStore(store)
+      .fetchProductFromStore(fetchAll ? {id1 : "all"} : store)
       .then(products => {
         dispatch({ type : "update-products", payload : products });
         dispatch({ type : "fetch-success" });
@@ -84,7 +85,7 @@ const StoreContent = () => {
             <AddToCart product={product}></AddToCart>
           </Drawer>
         </>
-        : null
+        : <Loading/>
         }
     </>
   )

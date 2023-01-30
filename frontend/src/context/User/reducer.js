@@ -36,7 +36,6 @@ export const reducer = (state, action) => {
 
     case "logout" : {
       Cookies.remove('access_token');
-      cartController.clearLocalCart();
       return {
         ...state,
         user : null
