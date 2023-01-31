@@ -10,10 +10,11 @@ import styled from 'styled-components';
 import Drawer from '@mui/material/Drawer';
 import { UserContext } from '../context/User/UserProvider';
 import Loading from './Loading';
+import SearchBar from './SearchBar';
 
 const StoreContainer = styled.div`
   display: grid;
-  padding-top: 160px;
+  padding-top: 70px;
   /**
    * User input values.
    */
@@ -65,6 +66,7 @@ const StoreContent = ({fetchAll}) => {
 
   return (
     <>
+      <SearchBar/>
       {
         state.fetchStatus === 'success'
         ? <>
@@ -72,6 +74,7 @@ const StoreContent = ({fetchAll}) => {
             {
               Array
               .from(state.products)
+              .filter(p => p.name.includes(state.searchPrompt.toUpperCase()))
               .map(
                 product => <StoreItem key={product._id} product={product} onClick={() => onAddToCartClick(product._id)}></StoreItem>
               )

@@ -155,6 +155,13 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "set-search-prompt" : {
+      return {
+        ...state,
+        searchPrompt : action.payload
+      }
+    }
+
     default:
       return state
   }
@@ -174,6 +181,8 @@ export const initialState = {
 
   loginMessage : "",
   signupMessage : "",
+
+  searchPrompt : "",
 
   productPreview : null,
   previewOpen : false,

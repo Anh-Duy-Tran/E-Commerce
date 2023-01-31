@@ -43,7 +43,7 @@ const StoreItem = ({product, onClick}) => {
       <Link href={"/products/" + product._id}>
         <CardMedia
           component="img"
-          alt="green iguana"
+          alt="product-image"
           image={product.idle}
         />
       </Link>
