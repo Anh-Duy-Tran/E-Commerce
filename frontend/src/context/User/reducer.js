@@ -95,7 +95,7 @@ export const reducer = (state, action) => {
     case "update-products": {
       return {
         ...state,
-        products : action.payload.sort((a, b) => 0.5 - Math.random()),
+        products : Array.isArray(action.payload) ? action.payload.sort((a, b) => 0.5 - Math.random()) : action.payload,
       }
     }
 
