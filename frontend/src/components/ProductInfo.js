@@ -104,7 +104,7 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
         Add to cart 
       </Button>
       {
-        state.user.role === 'admin'
+        state.user && state.user.role === 'admin'
         ? <Button 
             sx = {{...buttonStyle, backgroundColor : "red", "&:hover" : {
                               backgroundColor : "red",
