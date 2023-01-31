@@ -72,7 +72,6 @@ const StoreContent = ({fetchAll}) => {
             {
               Array
               .from(state.products)
-              .sort((a, b) => 0.5 - Math.random())
               .map(
                 product => <StoreItem key={product._id} product={product} onClick={() => onAddToCartClick(product._id)}></StoreItem>
               )

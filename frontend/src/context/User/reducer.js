@@ -28,7 +28,7 @@ export const reducer = (state, action) => {
     case "update-all" : {
       return {
         ...state,
-        products : action.products,
+        products : action.products.sort((a, b) => 0.5 - Math.random()),
         category : action.category,
         stores : action.stores
       }
@@ -95,7 +95,7 @@ export const reducer = (state, action) => {
     case "update-products": {
       return {
         ...state,
-        products : action.payload
+        products : action.payload.sort((a, b) => 0.5 - Math.random()),
       }
     }
 
