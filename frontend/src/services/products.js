@@ -42,5 +42,11 @@ const addNewProduct = async (token, product) => {
     .then(res => res.data);
 }
 
-const service = {addNewProduct, fetchProducts, fetchCategory, fetchProductFromStore, fetchProductsById };
+const deleteProduct = async (token, productId) => {
+  axios
+    .delete(`${URL}/${productId}`, config(token))
+    .then(res => res.data);
+}
+
+const service = { deleteProduct, addNewProduct, fetchProducts, fetchCategory, fetchProductFromStore, fetchProductsById };
 export default service;

@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import ColorSelector from './ColorSelector';
 import SizeSelector from './SizeSelector';
 import Snackbar from '@mui/material/Snackbar';
-
+import productService from '../services/products';
 import cart from '../controllers/cart';
 import { Button } from '@mui/material';
 import { UserContext } from '../context/User/UserProvider';
+import Cookies from 'js-cookie';
 
 const Container = styled.div`
   margin-bottom: auto;
@@ -67,6 +68,12 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
     setSnackMessage("Item added!")
   }
 
+  const handleDeleteProduct = async () => {
+    const token = Cookies.get('access_token');
+    await productService.deleteProduct(token, product._id);
+    setSnackMessage("Product deleted!")
+  }
+
   return (
     <Container>
       <Name>
@@ -96,6 +103,19 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
               onClick={() => addToCart(product)}> 
         Add to cart 
       </Button>
+      {
+        state.user.role === 'admin'
+        ? <Button 
+            sx = {{...buttonStyle, backgroundColor : "red", "&:hover" : {
+                              backgroundColor : "red",
+                              textDecoration: "underline #FFFFFF"
+                  }}}
+            onClick={handleDeleteProduct}
+          >
+          Delete product from store!
+        </Button>
+        : null
+      }
       <Snackbar
         open={snackMessage !== null}
         autoHideDuration={4000}

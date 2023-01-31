@@ -27,8 +27,8 @@ const MenuProps = {
 const names = [
   'new',
   'all',
-  'men',
-  'women',
+  'man',
+  'woman',
   'shirt',
   'trouser',
   'shoe',
