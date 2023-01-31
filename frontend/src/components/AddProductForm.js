@@ -7,7 +7,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import CircleIcon from '@mui/icons-material/Circle';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/User/UserProvider";
+import Cookies from "js-cookie";
+import productService from '../services/products'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,7 +35,7 @@ const names = [
   'accessories'
 ];
 
-const Alpha = ["XS", "S", "M", "L", "XL", "XXL"]
+const Alpha = ["XXS", "XS", "S", "M", "L", "XL", "XXL"]
 const Numeric = ['30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60'];
 
 function getStyles(name, productType, theme) {
@@ -47,6 +50,9 @@ function getStyles(name, productType, theme) {
 
 const AddProductForm = () => {
   const theme = useTheme();
+
+  const { state, dispatch } = useContext(UserContext);
+
   const [ productType, setProductType ] = useState([]);
   const [ productSize, setProductSize ] = useState([]);
   
@@ -55,6 +61,9 @@ const AddProductForm = () => {
 
   const [ numColor, setNumColor ] = useState(1);
   const [ previewColor, setPreviewColor ] = useState(['']);
+
+  const [ errorPrice, setErrorPrice ] = useState(false);
+  const [ errorColor, setErrorColor ] = useState(false);
 
   const handleProductTypeChange = (event) => {
     const {
@@ -83,6 +92,40 @@ const AddProductForm = () => {
     setSizeOption([... event.target.value === 'Numeric size' ? Numeric : Alpha]);
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget)
+
+    const newProduct = {
+      name : data.get('product-name'),
+      description : data.get('product-description'),
+      price : parseFloat(data.get('product-price')),
+      type : [...productType],
+      size : [...productSize],
+      color : Array.from(Array(numColor).keys()).map(
+        i => (
+          {
+            name : data.get(`color-${i}-name`),
+            code : `#${data.get(`color-${i}-code`)}`,
+          }
+        )),
+
+      image : Object.fromEntries(new Map(Array.from(Array(numColor).keys()).map(
+          i => {
+            const name = data.get(`color-${i}-name`);
+            const images = data.get(`color-product-image-${i}`).split(';').map(url => url.trim())
+            return [name, images]}
+      ))),
+
+      idle : data.get(`color-product-image-0`).split(';').map(url => url.trim())[0],
+      active : data.get(`color-product-image-0`).split(';').map(url => url.trim())[0]
+    }
+
+
+    dispatch({ type : "set-product-preview", payload : newProduct });
+    dispatch({ type : "togle-preview"});
+  }
+
   return (
     <Container component="main" sx={{mt : 15}}>
       <Typography sx={{fontFamily: 'Futura', }} component="h1" variant="h5">
@@ -93,7 +136,9 @@ const AddProductForm = () => {
             Product information:
       </Typography>
 
-      <Box component="form"
+      <Box 
+          component="form"
+          onSubmit={handleSubmit}
           sx={{
             display : 'flex',
             flexDirection: 'column'
@@ -131,10 +176,13 @@ const AddProductForm = () => {
 
         <Container  sx={{display : 'flex', mt: 2, gap : 1.5}}>
           <FormControl variant="outlined">
-            <InputLabel htmlFor="product-price">Price</InputLabel>
+            <InputLabel error={errorPrice} htmlFor="product-price">Price</InputLabel>
             <OutlinedInput
               required
+              error={errorPrice}
+              onChange={(e) => setErrorPrice(isNaN(e.target.value) || isNaN(parseFloat(e.target.value)))}
               id="product-price"
+              name="product-price"
               label='Price'
               endAdornment={<InputAdornment position="end">€</InputAdornment>}
               aria-describedby="product price"
@@ -258,6 +306,7 @@ const AddProductForm = () => {
                                 autoComplete="color-name"
                       />
                       <TextField
+                                error={errorColor}
                                 margin="dense"
                                 required
                                 fullWidth
@@ -265,6 +314,11 @@ const AddProductForm = () => {
                                 label={`Color${i} code (Hex)`}
                                 name={`color-${i}-code`}
                                 onChange={(e) => {
+                                  if (e.target.value.length !== 6) {
+                                    setErrorColor(true);
+                                    return;
+                                  }
+                                  setErrorColor(false);
                                   const temp = [...previewColor]
                                   temp[i] = `#${e.target.value}`
                                   setPreviewColor(temp)
@@ -282,7 +336,7 @@ const AddProductForm = () => {
                                   fullWidth
                                   id="color-product-image"
                                   label="Product image links (seperate by  ' ; ' )"
-                                  name="color-product-image"
+                                  name={`color-product-image-${i}`}
                                   autoComplete="image-links"
                                   multiline
                       />
@@ -311,12 +365,13 @@ const AddProductForm = () => {
 
         </Box>
         
-      <Button 
-            sx={{mt : 4, ml : 2, mr : 2}}
-            type="submit"
-      >
-        See preview
-      </Button>
+        <Button 
+              sx={{mt : 4, ml : 2, mr : 2}}
+              
+              type="submit"
+        >
+          See preview
+        </Button>
       </Box>
     </Container>
   )

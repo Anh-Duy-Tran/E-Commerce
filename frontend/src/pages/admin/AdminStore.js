@@ -5,11 +5,15 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import styled from 'styled-components';
+import Drawer from '@mui/material/Drawer';
 
 import Navbar from "../../components/Navbar";
-
+import productService from '../../services/products';
 import StoreContent from '../../components/StoreContent';
 import AddProductForm from '../../components/AddProductForm';
+import { UserContext } from '../../context/User/UserProvider';
+import AddToCart from '../../components/AddToCart';
+import Cookies from 'js-cookie';
 
 
 const Container = styled.div`
@@ -32,7 +36,16 @@ function HideOnScroll(props) {
   );
 }
 
+
 const AdminStore = () => {
+  const { state, dispatch } = React.useContext(UserContext);
+  
+  const handleAddProduct = async () => {
+
+    const token = Cookies.get('access_token');
+    await productService.addNewProduct(token, state.productPreview);
+  }
+
   return (
     <Container>
         <HideOnScroll sx={{padding : '0px !important'}}>
@@ -44,6 +57,13 @@ const AdminStore = () => {
         </HideOnScroll>
         
         <AddProductForm/>
+        <Drawer
+            anchor={'bottom'}
+            open={state.previewOpen}
+            onClose={() => dispatch({type : "togle-preview"})}
+          >
+            <AddToCart product={state.productPreview} adminPreview={true} handleAddProduct={handleAddProduct}></AddToCart>
+          </Drawer>
         <StoreContent fetchAll={true}/>
     </Container>
   )

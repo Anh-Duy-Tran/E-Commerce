@@ -141,6 +141,20 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "set-product-preview" : {
+      return {
+        ...state,
+        productPreview : action.payload
+      }
+    }
+
+    case "togle-preview" : {
+      return {
+        ...state,
+        previewOpen : !state.previewOpen
+      }
+    }
+
     default:
       return state
   }
@@ -160,6 +174,9 @@ export const initialState = {
 
   loginMessage : "",
   signupMessage : "",
+
+  productPreview : null,
+  previewOpen : false,
 
   products : {},
   category : {},

@@ -4,6 +4,12 @@ const URL = 'https://nameless-shadow-4551.fly.dev/api/products';
 const CATEGORY_URL = 'https://nameless-shadow-4551.fly.dev/api/category';
 const STORE_URL = 'https://nameless-shadow-4551.fly.dev/api/store/';
 
+const config = (token) => {
+  return {
+    headers: { Authorization: `Bearer ${token}` }
+  };
+}
+
 const fetchProducts = async () => {
   return axios
     .get(URL)
@@ -30,5 +36,11 @@ const fetchProductsById = async (productid) => {
     .then(res => res.data);
 }
 
-const service = { fetchProducts, fetchCategory, fetchProductFromStore, fetchProductsById };
+const addNewProduct = async (token, product) => {
+  axios
+    .post(URL, product, config(token))
+    .then(res => res.data);
+}
+
+const service = {addNewProduct, fetchProducts, fetchCategory, fetchProductFromStore, fetchProductsById };
 export default service;

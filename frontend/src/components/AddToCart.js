@@ -6,6 +6,7 @@ import ProductImgSlider from './ProductImgSlider';
 import ProductInfo from './ProductInfo';
 import { UserContext } from '../context/User/UserProvider';
 import productsController from '../controllers/products';
+import { Button } from '@mui/material';
 
 const Container = styled.div`
   display: flex;
@@ -28,7 +29,22 @@ const SideContainer = styled.div`
   width: 30vw;
 `
 
-const AddToCart = ({product}) => {
+const buttonStyle = {
+  marginTop : "50px",
+  color : "white",
+  fontFamily : "Futura",
+  fontSize : "20px",
+  width : "75%",
+  marginLeft : "12px",
+  marginRight : "50px",
+  backgroundColor : "black",
+  "&:hover": {
+    backgroundColor : "black",
+    textDecoration: "underline #FFFFFF"
+  }
+}
+
+const AddToCart = ({product, adminPreview , handleAddProduct}) => {
   const [ color, setColor ] = React.useState(product.color[0].name);
 
   return (
@@ -37,7 +53,14 @@ const AddToCart = ({product}) => {
         <ProductImgSlider slides={product.image[color]} height={"600px"}></ProductImgSlider>
       </ImgSlider>
       <SideContainer>
-        <ProductInfo product={product} color={color} setColor={setColor} noDescription={true}></ProductInfo>
+        <ProductInfo product={product} color={color} setColor={setColor} noDescription={!adminPreview}></ProductInfo>
+        {
+          adminPreview
+          ? <Button sx ={buttonStyle} onClick={handleAddProduct}>
+            Add product to shop
+          </Button>
+          : null
+        }
       </SideContainer>
     </Container>
   )
