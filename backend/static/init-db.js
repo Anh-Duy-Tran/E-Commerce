@@ -1,6 +1,6 @@
 const { connectDB, disconnectDB } = require('../models/db');
 
-const products = require('./products.json').map(product => ({ ...product }));
+const products = require('./products_backup.json').map(product => ({ ...product }));
 
 (async () => {
   connectDB();
