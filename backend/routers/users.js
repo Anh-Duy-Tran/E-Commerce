@@ -4,7 +4,6 @@ const authenticate = require('../auth/auth');
 
 const Users = require('../models/user');
 
-
 const ROLES = ['customer', 'admin'];
 
 usersRouter.get('/all', authenticate, async (req, res) => {

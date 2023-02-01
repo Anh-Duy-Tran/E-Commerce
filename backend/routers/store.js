@@ -2,8 +2,6 @@ const storeRouter = require('express').Router();
 
 const Products = require('../models/product');
 
-const allowedStores = ['all', 'men', 'women', 'shirt', 'trouser'];
-
 storeRouter.get('/:id', async (req, res) => {
   return res.json(await Products.find({ type : req.params.id}));
 });

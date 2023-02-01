@@ -10,11 +10,11 @@ registerRouter.post('/', async (req, res) => {
   const email = data.email;
 
   if (await User.findOne({username : username}) !== null) {
-    return res.status(400).json({ error : "Username already exist."});
+    return res.status(409).json({ error : "Username already existed."});
   }
   
   if (await User.findOne({email : email}) !== null) {
-    return res.status(400).json({ error : "Email already exist."});
+    return res.status(409).json({ error : "Email already existed."});
   }
   
   try {

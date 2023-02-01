@@ -26,7 +26,7 @@ productsRouter.post('/', authenticate, async (req, res) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({ message : "Only admins are allowed to add product."});
   }
-
+  
   try {
     const newProduct = new Products({...req.body});
     await newProduct.save();
@@ -34,6 +34,20 @@ productsRouter.post('/', authenticate, async (req, res) => {
   } catch (error) {
     return res.status(500).json({error : error});
   }
+})
+
+productsRouter.delete('/:id', authenticate, async (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message : "Only admins are allowed to delete product."});
+  }
+  
+  try {
+    await Products.deleteOne({ _id : req.params.id });
+    return res.status(204).json({ message : "Deleted product."})
+  } catch (error) {
+    return res.status(500).json({error : error});
+  }
+  
 })
 
 

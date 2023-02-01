@@ -4,32 +4,32 @@
     "paths" : [
       {
         "tile" : "View All",
-        "path" : "/all"
+        "path" : "/store/all"
       },
       {
         "tile" : "For Woman",
-        "path" : "/woman"
+        "path" : "/store/woman"
       },
       {
         "tile" : "For Man",
-        "path" : "/men"
+        "path" : "/store/man"
       }
     ]
   },
   {
-    "tile" : "Men",
+    "tile" : "Man",
     "paths" : [
       {
         "tile" : "All",
-        "path" : "/men"
+        "path" : "/store/man"
       },
       {
         "tile" : "Shirt",
-        "path" : "/men/"
+        "path" : "/store/man/shirt"
       },
       {
         "tile" : "Trouser",
-        "path" : "/men/trouser"
+        "path" : "/store/man/trouser"
       }
     ]
   },
@@ -39,19 +39,19 @@
     "paths" : [
       {
         "tile" : "View All",
-        "path" : "/woman"
+        "path" : "/store/woman"
       },
       {
         "tile" : "Shirt",
-        "path" : "/woman/shirt"
+        "path" : "/store/woman/shirt"
       },
       {
         "tile" : "Accessories",
-        "path" : "/woman/accessories"
+        "path" : "/store/woman/accessories"
       },
       {
         "tile" : "Shoes",
-        "path" : "/woman/shoes"
+        "path" : "/store/woman/shoes"
       }
     ]
   },

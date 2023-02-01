@@ -12,6 +12,7 @@ const authRouter = require('./routers/auth');
 const storeRouter = require('./routers/store');
 const categoryRouter = require('./routers/category');
 const cartRouter = require('./routers/cart');
+const userSRouter = require('./routers/users')
 const authenticateToken = require('./auth/auth');
 
 const app = express();
@@ -29,5 +30,6 @@ app.use('/api/store', storeRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/users', userSRouter);
 
 module.exports = app;
