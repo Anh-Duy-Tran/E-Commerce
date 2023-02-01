@@ -37,10 +37,10 @@ export const UserProvider = ({ children }) => {
     productService
       .fetchCategory()
       .then(category => {
+        dispatch({ type : "fetch-success" });
         dispatch({ type : "update-count", payload : cartController.getCartCount()})
         dispatch({ type : "update-total-price", payload : cartController.getTotalCartPrice()})
         dispatch({ type : "update-category", payload : category });
-        dispatch({ type : "fetch-success" });
       })
   }, [])
 

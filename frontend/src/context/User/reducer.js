@@ -162,6 +162,13 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "set-user-list" : {
+      return {
+        ...state,
+        userList : action.payload
+      }
+    }
+
     default:
       return state
   }
@@ -186,6 +193,7 @@ export const initialState = {
 
   productPreview : null,
   previewOpen : false,
+  userList : undefined,
 
   products : {},
   category : {},

@@ -41,7 +41,6 @@ const AdminStore = () => {
   const { state, dispatch } = React.useContext(UserContext);
   
   const handleAddProduct = async () => {
-
     const token = Cookies.get('access_token');
     await productService.addNewProduct(token, state.productPreview);
   }
