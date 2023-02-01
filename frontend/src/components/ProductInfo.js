@@ -48,7 +48,7 @@ const buttonStyle = {
 }
 
 
-const ProductInfo = ({product, color, setColor, noDescription}) => {
+const ProductInfo = ({product, color, setColor, noDescription, adminPreview}) => {
   const { state, dispatch } = React.useContext(UserContext)
   const [ size, setSize ] = React.useState(null);
   const [ snackMessage, setSnackMessage] = React.useState(null);
@@ -104,7 +104,7 @@ const ProductInfo = ({product, color, setColor, noDescription}) => {
         Add to cart 
       </Button>
       {
-        state.user && state.user.role === 'admin'
+        state.user && state.user.role === 'admin' && !adminPreview
         ? <Button 
             sx = {{...buttonStyle, backgroundColor : "red", "&:hover" : {
                               backgroundColor : "red",

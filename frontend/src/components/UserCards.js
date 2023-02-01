@@ -106,7 +106,7 @@ const UserCards = () => {
         <TextField 
                   sx={{ flexGrow : 1}}
                   variant="outlined"
-                  label="Search"
+                  label={`Search by ${searchSetting}`}
                   value={searchPrompt}
                   onChange={(e) => { setSearchPrompt( e.target.value )}}>
 

@@ -53,7 +53,7 @@ const AddToCart = ({product, adminPreview , handleAddProduct}) => {
         <ProductImgSlider slides={product.image[color]} height={"600px"}></ProductImgSlider>
       </ImgSlider>
       <SideContainer>
-        <ProductInfo product={product} color={color} setColor={setColor} noDescription={!adminPreview}></ProductInfo>
+        <ProductInfo product={product} color={color} setColor={setColor} noDescription={!adminPreview} adminPreview={true}></ProductInfo>
         {
           adminPreview
           ? <Button sx ={buttonStyle} onClick={handleAddProduct}>
