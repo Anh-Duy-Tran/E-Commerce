@@ -14,6 +14,7 @@ import AddProductForm from '../../components/AddProductForm';
 import { UserContext } from '../../context/User/UserProvider';
 import AddToCart from '../../components/AddToCart';
 import Cookies from 'js-cookie';
+import { Snackbar } from '@mui/material';
 
 
 const Container = styled.div`
@@ -39,10 +40,16 @@ function HideOnScroll(props) {
 
 const AdminStore = () => {
   const { state, dispatch } = React.useContext(UserContext);
-  
+  const [ snackMessage, setSnackMessage ]  = React.useState(null)
+
   const handleAddProduct = async () => {
     const token = Cookies.get('access_token');
-    await productService.addNewProduct(token, state.productPreview);
+    try {
+      await productService.addNewProduct(token, state.productPreview);
+      setSnackMessage("Product successfully added to the database!")
+    } catch (error) {
+      setSnackMessage("Something went wrong!")
+    }
   }
 
   return (
@@ -64,6 +71,12 @@ const AdminStore = () => {
             <AddToCart product={state.productPreview} adminPreview={true} handleAddProduct={handleAddProduct}></AddToCart>
           </Drawer>
         <StoreContent fetchAll={true}/>
+        <Snackbar
+                open={snackMessage !== null}
+                autoHideDuration={4000}
+                onClose={ () => setSnackMessage(null) }
+                message={snackMessage}
+        />
     </Container>
   )
 }
