@@ -31,5 +31,9 @@ This is my MERN stack e-commerce web application on GitHub. I've used MongoDB to
 * **Edit products (includes add new product to the database, delete or modify the price of existing products)**
 
 
+https://user-images.githubusercontent.com/113171462/215924123-8513ccf1-3eb4-40c8-8037-687bb397cb5e.mov
+
+
+
 * **View and update information (role) of registered users**
 ![User list](screenshots/screenshot2.png)
