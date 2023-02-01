@@ -1,12 +1,12 @@
-#MERN E-Commerce Web App
+<h1>MERN E-Commerce Web App</h1>
 
 *under-development*
 
-##Introduction
+<h2>Introduction</h2>
 
 This is my MERN stack e-commerce web application on GitHub. I've used MongoDB to store all the users and products data, React for the responsive front-end, Node.js for the back-end and Express for routing. Security is priority and I've implemented bcrypt for user authentication and JWT for authorization. This project demonstrates my ability to develop a full-stack web application that is good looking, efficient and secure. Take a look and let me know what you think
 
-##Current state of the project
+<h2>Current state of the project</h2>
 
 **Progress so far:**
 * Stable backend
@@ -15,18 +15,22 @@ This is my MERN stack e-commerce web application on GitHub. I've used MongoDB to
 **Todo**
 * Save user shopping cart to the database.
 
-###Customer usecase:
+<h3>Customer usecase:</h3>
+
 *DEMO (old version)*
 *visit [this link](https://anhduytran-ecommerce.netlify.app/) for the live version*
 ![Preview](./ezgif-2-8b30786a74.gif)
 
-###Admin usecase
+<h3>Admin usecase</h3>
+
 * **Login credential:**
+
 *username: admin*
+
 *password: admin12345*
 <br>
 
-### After login using the admin credential, the navigating menu will have two more option for the admin user:
+<h3>After login using the admin credential, the navigating menu will have two more option for the admin user:</h3>
 
 * **Edit products (includes add new product to the database, delete or modify the price of existing products)**
 
