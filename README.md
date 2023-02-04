@@ -25,9 +25,9 @@ This is my MERN stack e-commerce web application on GitHub. I've used MongoDB to
 
 * **Login credential:**
 
-*username: admin*
+- username: admin*
 
-*password: admin12345*
+- password: admin12345*
 <br>
 
 <h3>After login using the admin credential, the navigating menu will have two more option for the admin user:</h3>
